@@ -15,7 +15,20 @@
                 <td>message</td>
                 <td>image</td>
             </tr>
+            {% for item in questions %}
+                <tr>
+                    <td>{{item['submission_time']}}</td>
+                    <td>{{item['view_number']}}</td>
+                    <td>{{item['vote_number']}}</td>
+                    <td>{{item['title']}}</td>
+                    <td>{{item['message']}}</td>
+                    <td>{{item['image']}}</td>
+                </tr>
+            {% endfor %}
         </thead>
     </table>
+    <form action="/add-question" method="post">
+        <button type="submit">Ask a question</button>
+    </form>
 </body>
 </html>

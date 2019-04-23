@@ -9,6 +9,12 @@ def route_index():
     question_data = question.get_data()
     return render_template('index.html', questions=question_data)
 
+
+@app.route('/add-question')
+def add_question():
+    pass
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports
