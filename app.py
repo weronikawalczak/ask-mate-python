@@ -22,9 +22,10 @@ def save_question():
     return redirect('/')
 
 
-@app.route('/question/<question_id>', methods=['GET'])
-def display_question():
-    return render_template('question_id.html')
+@app.route('/question/<question_id>/delete', methods=['GET'])
+def delete_question(question_id):
+    question.remove_question(question_id)
+    return redirect('/')
 
 
 if __name__ == "__main__":

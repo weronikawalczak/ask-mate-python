@@ -14,6 +14,7 @@
                 <td>title</td>
                 <td>message</td>
                 <td>image</td>
+                <td>actions</td>
             </tr>
             {% for item in questions %}
                 <tr>
@@ -23,6 +24,7 @@
                     <td><a href="/question/{{item['id']}}">{{item['title']}}</a></td>
                     <td>{{item['message']}}</td>
                     <td>{{item['image']}}</td>
+                    <td><a href="/question/{{ item['id'] }}/delete">DELETE</a></td>
                 </tr>
             {% endfor %}
         </thead>
