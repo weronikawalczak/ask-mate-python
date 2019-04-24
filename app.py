@@ -22,6 +22,12 @@ def save_question():
     return redirect('/')
 
 
+@app.route('/question/<question_id>/delete', methods=['GET'])
+def delete_question(question_id):
+    question.remove_question(question_id)
+    return redirect('/')
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports

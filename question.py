@@ -16,4 +16,16 @@ def save_question(data):
              'message': data['message'],
              'image': data['image']}
 
-    return csv_data_handler.write_data(question_path, question)
+    return csv_data_handler.write_data(question_path, question, 'a')
+
+
+def remove_question(question_id):
+    data = get_data()
+    #new_data = [row for row in data if row['id'] is not question_id]
+    new_data = []
+    for row in data:
+        if row['id'] is not question_id:
+            new_data.append(row)
+
+    print(new_data)
+    return csv_data_handler.write_data(question_path, new_data, 'w')
