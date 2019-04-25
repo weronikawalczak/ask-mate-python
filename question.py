@@ -26,4 +26,6 @@ def remove_question(question_id):
         if element['id'] == question_id:
             data.remove(element)
 
-    #return csv_data_handler.write_data(question_path, data, 'w')
+    print(data)
+
+    #return csv_data_handler.write_data(question_path, data, 'w+')

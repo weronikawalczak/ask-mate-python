@@ -13,8 +13,8 @@ def read_data(file_path):
     return content
 
 
-def write_data(file_path, data, mode):
+def write_data(file_path, data, mode, fieldnames=fieldnames):
     with open(file_path, mode, newline='') as csvfile:
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer = csv.DictWriter(csvfile, fieldnames)
         writer.writerow(data)
 
