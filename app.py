@@ -30,8 +30,9 @@ def delete_question(question_id):
 
 @app.route('/question/<question_id>', methods=['GET'])
 def display_question(question_id):
-    question_data = question.get_data()
-    return render_template('question_id.html', questions=question_data )
+    data = question.test(question_id)
+    #question_data = question.get_data()
+    return render_template('question_id.html', item=data)
 
 
 if __name__ == "__main__":

@@ -6,13 +6,21 @@
 </head>
 <body>
     <table>
-     {% for item in questions %}
-        <tr>
-            <td>{{item['title']}}</td>
-            <td>{{item['message']}}</td>
-            <td>{{item['image']}}</td>
-        </tr>
-     {% endfor %}
+         <thead>
+            <tr>
+                <td>title</td>
+                <td>message</td>
+                <td>image</td>
+            </tr>
+         </thead>
+        <tbody>
+            <tr>
+                <td>{{item['title']}}</td>
+                <td>{{item['message']}}</td>
+                <td>{{item['image']}}</td>
+            </tr>
+        </tbody>
     </table>
+
 </body>
 </html>
