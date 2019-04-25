@@ -28,6 +28,12 @@ def delete_question(question_id):
     return redirect('/')
 
 
+@app.route('/question/<question_id>', methods=['GET'])
+def display_question(question_id):
+    question_data = question.get_data()
+    return render_template('question_id.html', questions=question_data )
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports
