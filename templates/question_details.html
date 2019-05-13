@@ -7,11 +7,9 @@
 <body>
     <table>
          <thead>
-            <tr>
-                <td>title</td>
-                <td>message</td>
-                <td>image</td>
-            </tr>
+            <th>title</th>
+            <th>message</th>
+            <th>image</th>
          </thead>
         <tbody>
             <tr>
@@ -22,5 +20,25 @@
         </tbody>
     </table>
 
+    Answers:
+    <table>
+         <thead>
+            <th>message</th>
+            <th>image</th>
+            <th>votes</th>
+            <th>submitted</th>
+         </thead>
+        <tbody>
+           {% for answer in answers %}
+            <tr>
+                <td>{{answer.message}}</td>
+                <td>{{answer.image}}</td>
+                <td>{{answer.vote_number}}</td>
+                <td>{{answer.submission_time}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="/list">Back to list</a>
 </body>
 </html>
