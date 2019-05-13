@@ -17,13 +17,14 @@
         </thead>
             {% for question in questions %}
             <tr>
-                <td>{{question.submission_time}}</td>
+                <td>{{question.submission_time.strftime('%Y-%m-%d %H:%M')}}</td>
                 <td>{{question.view_number}}</td>
                 <td>{{question.vote_number}}</td>
                 <td><a href="/question/{{ question.id }}">{{question.title}}</a></td>
                 <td>{{question.message}}</td>
                 <td>{{question.image}}</td>
                 <td><a href="/question/{{ question.id }}/delete">DELETE</a></td>
+                <td><a href="/question/{{ question.id }}/edit">UPDATE</a></td>
             </tr>
             {% endfor %}
         </thead>

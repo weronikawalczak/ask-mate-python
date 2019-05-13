@@ -43,13 +43,29 @@ def delete_question(question_id):
     return redirect('/')
 
 
-# @app.route('/question/<question_id>', methods=['GET'])
-# def display_question(question_id):
-#     data = question.test(question_id)
-#     #question_data = question.get_data()
-#     return render_template('question_details.html', item=data)
-#
-#
+@app.route('/question/<question_id>/edit', methods=['GET'])
+def edit_question(question_id):
+    found_question = question.get_question(question_id)
+    return render_template('edit_question.html', question=found_question)
+
+
+@app.route('/question/<question_id>/update', methods=['POST'])
+def update_question(question_id):
+    title = request.form['title']
+    message = request.form['message']
+    image = request.form['image']
+    question.update_question(question_id, title, message, image)
+    return redirect('/question/' + question_id)
+
+#ANSWERS
+@app.route('/question/<question_id>/new-answer', methods=['POST'])
+def add_answer(question_id):
+    message = request.form['message']
+    image = request.form['image']
+    answer.add_answer(question_id, message, image)
+    return redirect('/question/' + question_id)
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports

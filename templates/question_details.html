@@ -19,26 +19,34 @@
             </tr>
         </tbody>
     </table>
+    <div><a href="/question/{{ question.id }}/edit">UPDATE</a></div>
+    {% if answers|length > 0 %}
+        Answers:
+        <table>
+             <thead>
+                <th>message</th>
+                <th>image</th>
+                <th>votes</th>
+                <th>submitted</th>
+             </thead>
+            <tbody>
+               {% for answer in answers %}
+                <tr>
+                    <td>{{answer.message}}</td>
+                    <td>{{answer.image}}</td>
+                    <td>{{answer.vote_number}}</td>
+                    <td>{{answer.submission_time.strftime('%Y-%m-%d %H:%M'}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+    <form action="/question/{{question.id}}/new-answer" method="post">
+        <textarea name="message"></textarea>
+        <textarea name="image"></textarea>
+        <button type="submit">Add answer</button>
+    </form>
 
-    Answers:
-    <table>
-         <thead>
-            <th>message</th>
-            <th>image</th>
-            <th>votes</th>
-            <th>submitted</th>
-         </thead>
-        <tbody>
-           {% for answer in answers %}
-            <tr>
-                <td>{{answer.message}}</td>
-                <td>{{answer.image}}</td>
-                <td>{{answer.vote_number}}</td>
-                <td>{{answer.submission_time}}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
 <a href="/list">Back to list</a>
 </body>
 </html>
