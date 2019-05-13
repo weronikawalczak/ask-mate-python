@@ -31,9 +31,12 @@ def remove_question(question_id):
     #return csv_data_handler.write_data(question_path, data, 'w+')
 
 
-def test(question_id):
+def show_question(question_id):
     data = get_data()
-
     for element in data:
         if element['id'] == question_id:
             return element
+
+
+def edit_question(question_id):
+    pass

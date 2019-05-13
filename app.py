@@ -28,9 +28,15 @@ def delete_question(question_id):
     return redirect('/')
 
 
+@app.route('/question/<question_id>/edit', methods=['POST'])
+def edit_question(question_id):
+    question.edit_question(question_id)
+    return render_template('edit_question.html')
+
+
 @app.route('/question/<question_id>', methods=['GET'])
 def display_question(question_id):
-    data = question.test(question_id)
+    data = question.show_question(question_id)
     #question_data = question.get_data()
     return render_template('question_id.html', item=data)
 
