@@ -7,27 +7,24 @@
 <body>
     <table>
         <thead>
+            <th><a href="/list?order_by=submission_time&order_direction={% if order_direction == 'asc' %}DESC{% else %}desc{% endif %}">submission time</a></th>
+            <th>view number</th>
+            <th>vote_number</th>
+            <th>title</th>
+            <th>message</th>
+            <th>image</th>
+            <th>actions</th>
+        </thead>
+            {% for question in questions %}
             <tr>
-                <td>submission time</td>
-                <td>view number</td>
-                <td>vote_number</td>
-                <td>title</td>
-                <td>message</td>
-                <td>image</td>
-                <td>actions</td>
+                <td>{{question.submission_time}}</td>
+                <td>{{question.view_number}}</td>
+                <td>{{question.vote_number}}</td>
+                <td><a href="/question/{{ question.id }}">{{question.title}}</a></td>
+                <td>{{question.message}}</td>
+                <td>{{question.image}}</td>
+                <td><a href="/question/{{ question.id }}/delete">DELETE</a></td>
             </tr>
-            {% for item in questions %}
-                <tr>
-                    <td>{{item['submission_time']}}</td>
-                    <td>{{item['view_number']}}</td>
-                    <td>{{item['vote_number']}}</td>
-                    <td><a href="/question/{{item['id']}}">{{item['title']}}</a></td>
-                    <td>{{item['message']}}</td>
-                    <td>{{item['image']}}</td>
-                    <td><a href="/question/{{ item['id'] }}/delete">DELETE</a>
-                        aaaa</td>
-
-                </tr>
             {% endfor %}
         </thead>
     </table>

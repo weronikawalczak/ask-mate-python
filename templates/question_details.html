@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+         <thead>
+            <th>title</th>
+            <th>message</th>
+            <th>image</th>
+         </thead>
+        <tbody>
+            <tr>
+                <td>{{question.title}}</td>
+                <td>{{question.message}}</td>
+                <td>{{question.image}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    Answers:
+    <table>
+         <thead>
+            <th>message</th>
+            <th>image</th>
+            <th>votes</th>
+            <th>submitted</th>
+         </thead>
+        <tbody>
+           {% for answer in answers %}
+            <tr>
+                <td>{{answer.message}}</td>
+                <td>{{answer.image}}</td>
+                <td>{{answer.vote_number}}</td>
+                <td>{{answer.submission_time}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+<a href="/list">Back to list</a>
+</body>
+</html>
