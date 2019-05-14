@@ -66,6 +66,20 @@ def add_answer(question_id):
     return redirect('/question/' + question_id)
 
 
+@app.route('/answer/<answer_id>/edit')
+def edit_answer(answer_id):
+    found_answer = answer.get_answer(answer_id)
+    return render_template('answer.html', answer=found_answer)
+
+
+@app.route('/answer/<answer_id>/update', methods=['POST'])
+def update_answer(answer_id):
+    message = request.form['message']
+    answer.update_answer(answer_id, message)
+    question_id = answer.get_question_id(answer_id)
+    return redirect('/question/' + str(question_id))
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports
