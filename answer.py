@@ -19,3 +19,7 @@ def update_answer(answer_id, message):
 
 def get_question_id(answer_id):
     return data_manager.get_question_id(answer_id)
+
+
+def remove_answer(answer_id):
+    return data_manager.remove_answer(answer_id)

@@ -80,6 +80,13 @@ def update_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
+@app.route('/answer/<answer_id>/delete')
+def delete_answer(answer_id):
+    question_id = answer.get_question_id(answer_id)
+    answer.remove_answer(answer_id)
+    return redirect('/question/' + str(question_id))
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports

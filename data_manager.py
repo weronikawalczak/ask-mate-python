@@ -72,4 +72,6 @@ def get_question_id(cursor, id):
     return question_id
 
 
-
+@database_common.connection_handler
+def remove_answer(cursor, id):
+    return cursor.execute("""DELETE FROM answer WHERE id = %(id)s;""", {'id': id})
