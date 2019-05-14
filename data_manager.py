@@ -70,3 +70,6 @@ def get_question_id(cursor, id):
     cursor.execute("""SELECT question_id FROM answer WHERE id = %(id)s;""", {'id': id})
     question_id = cursor.fetchone()['question_id']
     return question_id
+
+
+

@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </head>
 <body>
+    <h1>ASK MATE</h1>
     <table>
         <thead>
-            <th><a href="/list?order_by=submission_time&order_direction={% if order_direction == 'asc' %}DESC{% else %}desc{% endif %}">submission time</a></th>
-            <th>view number</th>
-            <th>vote_number</th>
-            <th>title</th>
-            <th>message</th>
-            <th>image</th>
-            <th>actions</th>
+             <div class="row">
+                <div class="col-md-2">submission time</a></div>
+                <div class="col-md-1">view number</div>
+                <div class="col-md-1">vote number</div>
+                <div class="col-md-2">title</div>
+                <div class="col-md-2">message</div>
+                <div class="col-md-2">image</div>
+                <div class="col-md-2">actions</div>
+            </div>
         </thead>
             {% for question in questions %}
             <tr>
@@ -30,7 +35,8 @@
         </thead>
     </table>
     <form action="/add-question" method="get">
-        <button type="submit">Ask a question</button>
+        <button class="btn btn-success" type="submit">Ask a question</button>
     </form>
 </body>
 </html>
+
