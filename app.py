@@ -3,6 +3,7 @@ import question
 import answer
 
 app = Flask(__name__)
+app.debug = True
 
 
 @app.route('/')
