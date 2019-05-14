@@ -2,9 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Edit question</title>
 </head>
 <body>
-
+    <h1>Edit question</h1>
+    <form action="/question/{{question.id}}/update" method="post">
+        Title: <br/>
+        <input type="text" name="title" value="{{ question.title }}"><br><br/>
+        Message: <br/>
+        <textarea name="message"/>{{ question.message }}</textarea><br><br/>
+        Image:<br/>
+        <textarea name="image" />{{ question.image }}</textarea><br><br/>
+        <button type="submit">Save</button>
+    </form>
 </body>
 </html>
