@@ -49,3 +49,29 @@ def get_answers_by_question_id(cursor, id):
 @database_common.connection_handler
 def add_answer(cursor, question_id, message, image):
     return cursor.execute("INSERT INTO answer (question_id, message, image) VALUES (%s, %s, %s)", (question_id, message, image))
+
+
+@database_common.connection_handler
+def get_answer_by_id(cursor, id):
+    cursor.execute("""SELECT * FROM answer WHERE id = %(id)s;""", {'id': id})
+    answer = cursor.fetchone()
+    return answer
+
+
+@database_common.connection_handler
+def update_answer(cursor, id, message):
+    return cursor.execute("""UPDATE answer 
+                                SET message = %(message)s
+                                WHERE id = %(id)s;""", {'id': id, 'message': message})
+
+
+@database_common.connection_handler
+def get_question_id(cursor, id):
+    cursor.execute("""SELECT question_id FROM answer WHERE id = %(id)s;""", {'id': id})
+    question_id = cursor.fetchone()['question_id']
+    return question_id
+
+
+@database_common.connection_handler
+def remove_answer(cursor, id):
+    return cursor.execute("""DELETE FROM answer WHERE id = %(id)s;""", {'id': id})

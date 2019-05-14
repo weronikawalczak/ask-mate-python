@@ -36,6 +36,8 @@
                     <td>{{answer.image}}</td>
                     <td>{{answer.vote_number}}</td>
                     <td>{{answer.submission_time.strftime('%Y-%m-%d %H:%M')}}</td>
+                    <td><a href="/answer/{{answer.id}}/edit">Update</a></td>
+                    <td><a href="/answer/{{answer.id}}/delete">Delete</a></td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -50,3 +52,4 @@
 <a href="/list">Back to list</a>
 </body>
 </html>
+
