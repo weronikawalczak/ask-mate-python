@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 
@@ -17,23 +18,30 @@
     <div class="container">
         <div class="row">
             <h1>{{question.title}}</h1>
+             <hr style="width: 100%; border-top: 1px solid #007bff;">
         </div>
-        <div class="border border-primary"></div>
+
         <div class="row text-justify">{{question.message}}</div>
         <div class="row">{{question.image}}</div>
         <div class="row">
             <div class="col-md-2"><a href="/question/{{ question.id }}/new-comment">add a comment</a></div>
             <div class="col-md-2"><a href="/question/{{ question.id }}/edit">update question</a></div>
+            <div class="col-md-2"><a href="/question/{{ question.id }}/delete">delete question</a></div>
         </div>
 
-        <div class="row"><h5>Comments:</h5></div>
-        {% for comment in comments %}
-            <div class="row border justify-content-md-center">
-                <div class="col-md-auto small p-2 ">{{comment.message}}</div>
-                <div class="col-md-auto small p-2">{{comment.submission_time}}</div>
-                <div class="col-md-auto small p-2"><a href="#">delete comment</a></div>
-            </div>
-        {% endfor %}
+        <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-9">
+            <h5>Comments:</h5>
+            {% for comment in comments %}
+                <div class="row border justify-content-md-center">
+                    <div class="col-md-auto small p-2 ">{{comment.message}}</div>
+                    <div class="col-md-auto small p-2">{{comment.submission_time}}</div>
+                    <div class="col-md-auto small p-2"><a href="#">delete comment</a></div>
+                </div>
+            {% endfor %}
+        </div>
+        </div>
 
 
         {% if answers|length > 0 %}
@@ -41,6 +49,7 @@
         {% endif %}
             {% for answer in answers %}
                 <div class="row border">
+                    <div class="col-md-2"> <a href="/answer/{{answer.id}}/vote"><i class="fa fa-thumbs-up" style="cursor: pointer;"></i></a><span style="margin: 10px;">{{answer.vote_number}}</span>votes</div>
                     <div class="col-md-2">{{answer.message}}</div>
                     <div class="col-md-2"><a href="/answer/{{answer.id}}/edit">Update answer</a></div>
                     <div class="col-md-2"><a href="/answer/{{answer.id}}/delete">Delete</a></div>
@@ -49,9 +58,9 @@
 
         <div class="row mt-4"><h2>Your answer...</h2></div>
         <form class="mt-4" action="/question/{{question.id}}/new-answer" method="post">
-            <textarea name="message"></textarea>
-            <textarea name="image"></textarea>
-            <button type="submit">Add answer</button>
+            <textarea name="message" class="md-textarea form-control"></textarea>
+            <textarea name="image" hidden="hidden"></textarea><br/>
+            <button type="submit" class="btn btn-primary">Add answer</button>
         </form>
     </div>
 </body>

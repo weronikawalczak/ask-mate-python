@@ -98,6 +98,13 @@ def delete_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
+@app.route('/answer/<answer_id>/vote')
+def vote_for_answer(answer_id):
+    answer.vote_for_answer(answer_id)
+    quetion_id = answer.get_question_id(answer_id)
+    return redirect('/question/' + str(quetion_id))
+
+
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports
