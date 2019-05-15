@@ -8,12 +8,8 @@ app = Flask(__name__)
 @app.route('/')
 @app.route('/list')
 def index():
-    order_direction = request.args.get('order_direction')
-    if order_direction is None:
-        order_direction = 'desc'
-
     questions = question.get_data()
-    return render_template('index.html', questions=questions, order_direction=order_direction)
+    return render_template('index.html', questions=questions)
 
 
 @app.route('/add-question')

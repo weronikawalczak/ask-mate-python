@@ -18,6 +18,7 @@
         <div class="row">
             <h1>{{question.title}}</h1>
         </div>
+        <div class="border border-primary"></div>
         <div class="row text-justify">{{question.message}}</div>
         <div class="row">{{question.image}}</div>
         <div class="row">
@@ -25,14 +26,14 @@
             <div class="col-md-2"><a href="/question/{{ question.id }}/edit">update question</a></div>
         </div>
 
-            <div class="row"><h5>Comments:</h5></div>
-            {% for comment in comments %}
-                <div class="row border justify-content-md-center">
-                    <div class="col-md-auto small p-2 ">{{comment.message}}</div>
-                    <div class="col-md-auto small p-2">{{comment.submission_time}}</div>
-                    <div class="col-md-auto small p-2"><a href="#">delete comment</a></div>
-                </div>
-            {% endfor %}
+        <div class="row"><h5>Comments:</h5></div>
+        {% for comment in comments %}
+            <div class="row border justify-content-md-center">
+                <div class="col-md-auto small p-2 ">{{comment.message}}</div>
+                <div class="col-md-auto small p-2">{{comment.submission_time}}</div>
+                <div class="col-md-auto small p-2"><a href="#">delete comment</a></div>
+            </div>
+        {% endfor %}
 
 
         {% if answers|length > 0 %}
