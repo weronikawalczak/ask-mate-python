@@ -1,46 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Ask Mate</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-    <style>
-        body{font-family: 'Lato', sans-serif;}
-    </style>
-
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border mb-2"><a href="#"><h1>ASK MATE</h1></a></nav>
-    <div class="container">
-        <div class="row">
-            <div class="col"><h2>Top 5 questions: </h2></div>
-            <div class="col text-right">
-                <form action="/add-question" method="get">
-                        <button class="btn btn-primary" type="submit">Ask a question</button>
-                </form>
-            </div>
-        </div>
-        <div class="row"><div class="col text-right">
-            <form action="#" method="get">
-                <button class="btn btn-default mb-3" type="submit">Show all</button>
-            </form>
-        </div></div>
-
-            {% for question in questions %}
-            <div class="row border">
-                <div class="col-md-1 p-2">{{question.view_number}} views</div>
-                <div class="col-md-1 p-2">{{question.vote_number}} votes</div>
-                <div class="col-md-3 p-2"><a href="/question/{{ question.id }}">{{question.title}}</a></div>
-                <div class="col-md-4 p-2">{{question.message}}</div>
-                <div class="col-md-1 p-2"><a href="/question/{{ question.id }}/delete">DELETE</a></div>
-                <div class="col-md-1 p-2"><a href="/question/{{ question.id }}/edit">UPDATE</a></div>
-            </div>
-            {% endfor %}
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <div class="col"><h2>Top 5 questions: </h2></div>
+    <div class="col text-right">
+        <form action="/add-question" method="get">
+                <button class="btn btn-primary" type="submit">Ask a question</button>
+        </form>
     </div>
-</body>
-</html>
+</div>
+<div class="row"><div class="col text-right">
+    <form action="#" method="get">
+        <button class="btn btn-default mb-3" type="submit">Show all</button>
+    </form>
+</div></div>
+
+    {% for question in questions %}
+    <div class="row border">
+        <div class="col-md-1 p-2">{{question.view_number}} views</div>
+        <div class="col-md-1 p-2">{{question.vote_number}} votes</div>
+        <div class="col-md-2 p-2">{{question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
+        <div class="col-md-3 p-2"><a href="/question/{{ question.id }}">{{question.title}}</a></div>
+        <div class="col-md-4 p-2">{{question.message}}</div>
+    </div>
+    {% endfor %}
+{% endblock %}
 
