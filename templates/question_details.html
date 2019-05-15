@@ -28,14 +28,15 @@
             <div class="row"><h5>Comments:</h5></div>
             {% for comment in comments %}
                 <div class="row border justify-content-md-center">
-                    <div class="col-md-auto small">{{comment.message}}</div>
-                    <div class="col-md-auto small">{{comment.submission_time}}</div>
+                    <div class="col-md-auto small p-2 ">{{comment.message}}</div>
+                    <div class="col-md-auto small p-2">{{comment.submission_time}}</div>
+                    <div class="col-md-auto small p-2"><a href="#">delete comment</a></div>
                 </div>
             {% endfor %}
 
 
         {% if answers|length > 0 %}
-            <div class="row"><h2>Answers:</h2></div>
+            <div class="row mt-4"><h2>Answers:</h2></div>
         {% endif %}
             {% for answer in answers %}
                 <div class="row border">
@@ -45,7 +46,8 @@
                 </div>
             {% endfor %}
 
-        <form action="/question/{{question.id}}/new-answer" method="post">
+        <div class="row mt-4"><h2>Your answer...</h2></div>
+        <form class="mt-4" action="/question/{{question.id}}/new-answer" method="post">
             <textarea name="message"></textarea>
             <textarea name="image"></textarea>
             <button type="submit">Add answer</button>
