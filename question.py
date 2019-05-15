@@ -19,3 +19,11 @@ def remove_question(id):
 
 def update_question(id, title, message, image):
     return data_manager.update_question(id, title, message, image)
+
+
+def add_comment(question_id, message):
+    return data_manager.add_comment(question_id, message)
+
+
+def get_comments(question_id):
+    return data_manager.get_comments(question_id)

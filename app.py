@@ -34,7 +34,8 @@ def save_question():
 def question_detail(question_id):
     found_question = question.get_question(question_id)
     question_answers = answer.get_question_answers(question_id)
-    return render_template('question_details.html', question=found_question, answers=question_answers)
+    found_comments = question.get_comments(question_id)
+    return render_template('question_details.html', question=found_question, answers=question_answers, comments=found_comments)
 
 
 @app.route('/question/<question_id>/delete', methods=['GET'])
@@ -56,6 +57,19 @@ def update_question(question_id):
     image = request.form['image']
     question.update_question(question_id, title, message, image)
     return redirect('/question/' + question_id)
+
+
+@app.route('/question/<question_id>/new-comment')
+def add_comment_question(question_id):
+    return render_template('add_comment.html', question_id=question_id)
+
+
+@app.route('/question/<question_id>/new-comment', methods=['POST'])
+def save_comment(question_id):
+    message = request.form['message']
+    question.add_comment(question_id, message)
+    return redirect('/question/' + str(question_id))
+
 
 #ANSWERS
 @app.route('/question/<question_id>/new-answer', methods=['POST'])

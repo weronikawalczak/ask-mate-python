@@ -38,6 +38,19 @@ def update_question(cursor, id, title, message, image):
                                     image = %(image)s
                                 WHERE id = %(id)s;""", {'id': id, 'title': title, 'message': message, 'image': image})
 
+
+@database_common.connection_handler
+def add_comment(cursor, question_id, message):
+    return cursor.execute("INSERT INTO comment (question_id, message) VALUES (%s, %s)", (question_id, message))
+
+
+@database_common.connection_handler
+def get_comments(cursor, question_id):
+    cursor.execute("""SELECT * FROM comment WHERE question_id = %(question_id)s;""", {'question_id': question_id})
+    comment = cursor.fetchall()
+    return comment
+
+
 #ANSWERS
 @database_common.connection_handler
 def get_answers_by_question_id(cursor, id):
