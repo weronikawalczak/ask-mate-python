@@ -25,11 +25,11 @@
             <div class="col-md-2"><a href="/question/{{ question.id }}/edit">update question</a></div>
         </div>
 
-            <div class="row"><h3>Comments:</h3></div>
+            <div class="row"><h5>Comments:</h5></div>
             {% for comment in comments %}
-                <div class="row border">
-                    <div class="col-md-2">{{comment.message}}</div>
-                    <div class="col-md-9">{{comment.submission_time}}</div>
+                <div class="row border justify-content-md-center">
+                    <div class="col-md-auto small">{{comment.message}}</div>
+                    <div class="col-md-auto small">{{comment.submission_time}}</div>
                 </div>
             {% endfor %}
 
