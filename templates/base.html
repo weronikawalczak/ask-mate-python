@@ -8,45 +8,12 @@
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body{font-family: 'Lato', sans-serif;}
-            * {
-      box-sizing: border-box;
-    }
-    form.example input[type=text] {
-      padding: 5px;
-      font-size: 17px;
-      border: 1px solid grey;
-      float: left;
-      width: 80%;
-      background: #white;
-    }
-    form.example button {
-      float: left;
-      width: 20%;
-      padding: 5px;
-      background: #2196F3;
-      color: white;
-      font-size: 17px;
-      border: 1px solid grey;
-      border-left: none;
-      cursor: pointer;
-    }
-    form.example button:hover {
-      background: #0b7dda;
-    }
-    form.example::after {
-      content: "";
-      clear: both;
-      display: table;
-    }
-        </style>
-
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light border"><a href="/list"><h1>ASK MATE</h1></a>
-    <form class="example" action="/search" style="margin:auto;max-width:300px" method="post">
-        <input type="text" placeholder="Ask mate.." name="search2">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light border mb-2"><a href="/list"><h1>ASK MATE</h1></a>
+    <form class="example" action="/search" style="margin:auto;max-width:300px" method="get">
+        <input type="text" placeholder="Ask mate.." name="phrase">
         <button type="submit"><i class="fa fa-search"></i></button>
     </form>
     </nav>
