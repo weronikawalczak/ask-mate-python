@@ -5,6 +5,10 @@ def get_data():
     return data_manager.get_all()
 
 
+def get_first():
+    return data_manager.get_first_five()
+
+
 def get_question(question_id):
     return data_manager.get_question_by_id(question_id)
 

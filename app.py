@@ -6,11 +6,19 @@ import data_manager
 app = Flask(__name__)
 
 
-@app.route('/')
+
 @app.route('/list')
 def index():
     questions = question.get_data()
+    #first_ones = question.get_first()
     return render_template('index.html', questions=questions)
+
+
+@app.route('/')
+@app.route('/show_first')
+def show_first_five():
+    first_ones = question.get_first()
+    return render_template('index2.html', first_ones=first_ones)
 
 
 @app.route('/add-question')

@@ -11,6 +11,15 @@ def get_all(cursor):
 
 
 @database_common.connection_handler
+def get_first_five(cursor):
+    cursor.execute("""
+                    SELECT * FROM question ORDER BY submission_time DESC LIMIT 5;
+                   """)
+    first_five = cursor.fetchall()
+    return first_five
+
+
+@database_common.connection_handler
 def add_new_question(cursor, title, message, image):
     cursor.execute("INSERT INTO question (title, message, image) VALUES (%s, %s, %s)", (title, message, image))
     cursor.execute('SELECT LASTVAL()')  # Some psycopg2 magic to get the latest inserted id

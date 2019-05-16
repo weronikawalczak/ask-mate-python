@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <div class="col"><h2><a href="/show_first">Top 5 questions:</a></h2></div>
+    <div class="col"><h2><a href="/show_first">Top 5 questions: </h2></a></div>
     <div class="col text-right">
         <form action="/add-question" method="get">
                 <button class="btn btn-primary" type="submit">Ask a question</button>
@@ -14,7 +14,7 @@
     </form>
 </div></div>
 
-    {% for question in questions %}
+    {% for question in first_ones %}
     <div class="row border">
         <div class="col-md-1 p-2">{{question.view_number}} views</div>
         <div class="col-md-1 p-2">{{question.vote_number}} votes</div>
@@ -23,9 +23,5 @@
         <div class="col-md-4 p-2">{{question.message}}</div>
     </div>
     {% endfor %}
-
-
-
-
 {% endblock %}
 
