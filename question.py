@@ -19,3 +19,4 @@ def remove_question(id):
 
 def update_question(id, title, message, image):
     return data_manager.update_question(id, title, message, image)
+

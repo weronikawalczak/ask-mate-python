@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, request
 import question
 import answer
+import data_manager
 
 app = Flask(__name__)
 app.debug = True
@@ -86,6 +87,13 @@ def delete_answer(answer_id):
     question_id = answer.get_question_id(answer_id)
     answer.remove_answer(answer_id)
     return redirect('/question/' + str(question_id))
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_result = request.form['search2']
+    result_to_show = data_manager.search_stuff(search_result)
+    return render_template('search.html', result_to_show=result_to_show)
 
 
 if __name__ == "__main__":
