@@ -107,10 +107,34 @@ def remove_answer(cursor, id):
 
 
 @database_common.connection_handler
-def search_stuff(cursor, search_term):
+def search(cursor, search_term):
     cursor.execute("""SELECT * FROM question 
-                      WHERE message 
-                      ILIKE""" "'%" + search_term + "%';")
+                      WHERE message ILIKE """ "'%" + search_term + "%'" """ OR title ILIKE """ "'%" + search_term + "%'")
     result = cursor.fetchall()
     return result
 
+
+@database_common.connection_handler
+def vote_for_question(cursor, id):
+    return cursor.execute("""UPDATE question 
+                                SET vote_number = vote_number + 1
+                                WHERE id = %(id)s;""", {'id': id})
+
+
+@database_common.connection_handler
+def delete_comment(cursor, id):
+    return cursor.execute("""DELETE FROM comment WHERE id = %(id)s;""", {'id': id})
+
+
+@database_common.connection_handler
+def get_question_by_comment_id(cursor, id):
+    cursor.execute("""SELECT question_id FROM comment WHERE id = %(id)s;""", {'id': id})
+    question_id = cursor.fetchone()['question_id']
+    return question_id
+
+
+@database_common.connection_handler
+def increment_view(cursor, id):
+    return cursor.execute("""UPDATE question 
+                                SET view_number = view_number + 1
+                                WHERE id = %(id)s;""", {'id': id})

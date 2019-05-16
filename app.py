@@ -40,6 +40,7 @@ def question_detail(question_id):
     found_question = question.get_question(question_id)
     question_answers = answer.get_question_answers(question_id)
     found_comments = question.get_comments(question_id)
+    question.increment_view(question_id)
     return render_template('question_details.html', question=found_question, answers=question_answers, comments=found_comments)
 
 
@@ -76,6 +77,13 @@ def save_comment(question_id):
     return redirect('/question/' + str(question_id))
 
 
+@app.route('/delete-comment/<comment_id>')
+def delete_comment(comment_id):
+    question_id = question.get_question_by_comment_id(comment_id)
+    question.delete_comment(comment_id)
+    return redirect('/question/' + str(question_id))
+
+
 #ANSWERS
 @app.route('/question/<question_id>/new-answer', methods=['POST'])
 def add_answer(question_id):
@@ -109,14 +117,20 @@ def delete_answer(answer_id):
 @app.route('/answer/<answer_id>/vote')
 def vote_for_answer(answer_id):
     answer.vote_for_answer(answer_id)
-    quetion_id = answer.get_question_id(answer_id)
-    return redirect('/question/' + str(quetion_id))
+    question_id = answer.get_question_id(answer_id)
+    return redirect('/question/' + str(question_id))
 
 
-@app.route('/search', methods=['POST'])
+@app.route('/question/<question_id>/vote')
+def vote_for_question(question_id):
+    question.vote_for_question(question_id)
+    return redirect('/')
+
+
+@app.route('/search', methods=['GET'])
 def search():
-    search_result = request.form['search2']
-    questions = data_manager.search_stuff(search_result)
+    search_phrase = request.args.get('phrase')
+    questions = data_manager.search(search_phrase)
     return render_template('index.html', questions=questions)
 
 

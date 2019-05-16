@@ -31,3 +31,19 @@ def add_comment(question_id, message):
 
 def get_comments(question_id):
     return data_manager.get_comments(question_id)
+
+
+def vote_for_question(question_id):
+    return data_manager.vote_for_question(question_id)
+
+
+def delete_comment(comment_id):
+    return data_manager.delete_comment(comment_id)
+
+
+def get_question_by_comment_id(comment_id):
+    return data_manager.get_question_by_comment_id(comment_id)
+
+
+def increment_view(id):
+    return data_manager.increment_view(id)

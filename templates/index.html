@@ -16,6 +16,7 @@
 
     {% for question in questions %}
     <div class="row border">
+        <div><a href="/question/{{question.id}}/vote"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><span style="margin: 10px;"></div>
         <div class="col-md-1 p-2">{{question.view_number}} views</div>
         <div class="col-md-1 p-2">{{question.vote_number}} votes</div>
         <div class="col-md-2 p-2">{{question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
