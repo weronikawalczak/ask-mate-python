@@ -67,7 +67,6 @@ def save_comment(question_id):
     return redirect('/question/' + str(question_id))
 
 
-
 #ANSWERS
 @app.route('/question/<question_id>/new-answer', methods=['POST'])
 def add_answer(question_id):
