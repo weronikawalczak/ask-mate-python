@@ -23,3 +23,7 @@ def get_question_id(answer_id):
 
 def remove_answer(answer_id):
     return data_manager.remove_answer(answer_id)
+
+
+def vote_for_answer(answer_id):
+    return data_manager.vote_for_answer(answer_id)

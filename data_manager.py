@@ -37,10 +37,23 @@ def update_question(cursor, id, title, message, image):
                                     image = %(image)s
                                 WHERE id = %(id)s;""", {'id': id, 'title': title, 'message': message, 'image': image})
 
+
+@database_common.connection_handler
+def add_comment(cursor, question_id, message):
+    return cursor.execute("INSERT INTO comment (question_id, message) VALUES (%s, %s)", (question_id, message))
+
+
+@database_common.connection_handler
+def get_comments(cursor, question_id):
+    cursor.execute("""SELECT * FROM comment WHERE question_id = %(question_id)s;""", {'question_id': question_id})
+    comment = cursor.fetchall()
+    return comment
+
+
 #ANSWERS
 @database_common.connection_handler
 def get_answers_by_question_id(cursor, id):
-    cursor.execute("""SELECT * FROM answer WHERE question_id = %(id)s;""", {'id': id})
+    cursor.execute("""SELECT * FROM answer WHERE question_id = %(id)s ORDER BY vote_number DESC;""", {'id': id})
     answers = cursor.fetchall()
     return answers
 
@@ -62,6 +75,13 @@ def update_answer(cursor, id, message):
     return cursor.execute("""UPDATE answer 
                                 SET message = %(message)s
                                 WHERE id = %(id)s;""", {'id': id, 'message': message})
+
+
+@database_common.connection_handler
+def vote_for_answer(cursor, id):
+    return cursor.execute("""UPDATE answer 
+                                SET vote_number = vote_number + 1
+                                WHERE id = %(id)s;""", {'id': id})
 
 
 @database_common.connection_handler

@@ -1,19 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <h1>Add new question</h1>
-    <form action="/add-question" method="post">
-        Title: <br/>
-        <input type="text" name="title"><br><br/>
-        Message: <br/>
-        <textarea name="message"/></textarea><br><br/>
-        Image:<br/>
-        <textarea name="image"/></textarea><br><br/>
-        <button type="submit">Add question</button>
-    </form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1>Add new question</h1>
+<form action="/add-question" method="post">
+    Title: <br/>
+    <input type="text" name="title"><br><br/>
+    Message: <br/>
+    <textarea name="message"/></textarea><br><br/>
+    Image:<br/>
+    <textarea name="image"/></textarea><br><br/>
+    <button type="submit" class="btn btn-primary">Add question</button>
+</form>
+{% endblock %}

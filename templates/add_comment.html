@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add new comment</h1>
+<form action="/question/{{question_id}}/new-comment" method="post">
+    Message: <br/>
+    <textarea name="message"/></textarea><br><br/>
+    <button type="submit" class="btn btn-primary">Add comment</button>
+</form>
+{% endblock %}
