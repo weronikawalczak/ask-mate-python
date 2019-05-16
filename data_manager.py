@@ -1,5 +1,6 @@
 import database_common
 
+
 @database_common.connection_handler
 def get_all(cursor):
     cursor.execute("""
@@ -98,6 +99,9 @@ def remove_answer(cursor, id):
 
 @database_common.connection_handler
 def search_stuff(cursor, search_term):
-    cursor.execute("""SELECT * FROM question WHERE message LIKE '%' %s""", (search_term,))
+    cursor.execute("""SELECT * FROM question 
+                      WHERE message 
+                      ILIKE""" "'%" + search_term + "%';")
     result = cursor.fetchall()
     return result
+

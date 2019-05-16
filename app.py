@@ -108,8 +108,8 @@ def vote_for_answer(answer_id):
 @app.route('/search', methods=['POST'])
 def search():
     search_result = request.form['search2']
-    result_to_show = data_manager.search_stuff(search_result)
-    return render_template('search.html', result_to_show=result_to_show)
+    questions = data_manager.search_stuff(search_result)
+    return render_template('index.html', questions=questions)
 
 
 if __name__ == "__main__":
@@ -117,5 +117,3 @@ if __name__ == "__main__":
         debug=True, # Allow verbose error reports
         port=5000 # Set custom port
     )
-
-
