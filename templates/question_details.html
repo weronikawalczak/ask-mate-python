@@ -38,18 +38,33 @@
         <div class="row border">
             <div class="col-md-2"><a href="/answer/{{answer.id}}/vote"><i class="fa fa-thumbs-up" style="cursor: pointer;"></i></a><span style="margin: 10px;">{{answer.vote_number}}</span>votes</div>
             <div class="col-md-4">{{answer.message}}</div>
-            <div class="col-md-1"><a href="#">add comment</a></div>
+            <div class="col-md-1"><a href="/answer/{{answer.id}}/new-comment">add comment</a></div>
             <div class="col-md-1"><a href="/answer/{{answer.id}}/edit">update answer</a></div>
             <div class="col-md-2"><a href="/answer/{{answer.id}}/delete">delete</a></div>
             <div class="col-md-2 small">{{answer.submission_time.strftime("%Y-%m-%d %H:%M")}}</a></div>
         </div>
+            <div class="row">
+                <div class="col-md-3"></div>
+                <div class="col-md-9 mb-2">
+                {% if answers_comments[answer.id]|length > 0 %}
+                    <h5 class="mt-2">Comments:</h5>
+                {% endif %}
+                {% for answer_comment in answers_comments[answer.id] %}
+                    <div class="row border justify-content-md-center">
+                        <div class="col-md-auto small p-2 ">{{answer_comment.message}}</div>
+                        <div class="col-md-auto small p-2">{{answer_comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
+                        <div class="col-md-auto small p-2"><a href="/delete-comment/{{answer_comment.id}}">delete comment</a></div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
     {% endfor %}
 
 <div class="row mt-4"><h2>Your answer...</h2></div>
 <form class="mt-4" action="/question/{{question.id}}/new-answer" method="post">
     <textarea name="message" class="md-textarea form-control"></textarea>
     <textarea name="image" hidden="hidden"></textarea><br/>
-    <button type="submit" class="btn btn-primary">Add answer</button>
+    <button type="submit" class="btn btn-primary mb-2">Add answer</button>
 </form>
 {% endblock %}
 

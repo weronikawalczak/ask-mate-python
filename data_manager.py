@@ -11,6 +11,15 @@ def get_all(cursor):
 
 
 @database_common.connection_handler
+def get_latest(cursor):
+    cursor.execute("""
+                    SELECT * FROM question ORDER BY submission_time DESC LIMIT 5;
+                   """)
+    questions = cursor.fetchall()
+    return questions
+
+
+@database_common.connection_handler
 def add_new_question(cursor, title, message, image):
     cursor.execute("INSERT INTO question (title, message, image) VALUES (%s, %s, %s)", (title, message, image))
     cursor.execute('SELECT LASTVAL()')  # Some psycopg2 magic to get the latest inserted id
@@ -86,7 +95,7 @@ def vote_for_answer(cursor, id):
 
 
 @database_common.connection_handler
-def get_question_id(cursor, id):
+def get_question_id_by_answer_id(cursor, id):
     cursor.execute("""SELECT question_id FROM answer WHERE id = %(id)s;""", {'id': id})
     question_id = cursor.fetchone()['question_id']
     return question_id
@@ -118,9 +127,15 @@ def delete_comment(cursor, id):
 
 
 @database_common.connection_handler
-def get_question_by_comment_id(cursor, id):
+def get_question_id_by_comment_id(cursor, id):
     cursor.execute("""SELECT question_id FROM comment WHERE id = %(id)s;""", {'id': id})
     question_id = cursor.fetchone()['question_id']
+    return question_id
+
+@database_common.connection_handler
+def get_answer_id_by_comment_id(cursor, id):
+    cursor.execute("""SELECT answer_id FROM comment WHERE id = %(id)s;""", {'id': id})
+    question_id = cursor.fetchone()['answer_id']
     return question_id
 
 
@@ -129,3 +144,15 @@ def increment_view(cursor, id):
     return cursor.execute("""UPDATE question 
                                 SET view_number = view_number + 1
                                 WHERE id = %(id)s;""", {'id': id})
+
+
+@database_common.connection_handler
+def add_comment_answer(cursor, answer_id, message):
+    return cursor.execute("INSERT INTO comment (answer_id, message) VALUES (%s, %s)", (answer_id, message))
+
+
+@database_common.connection_handler
+def get_answer_comments(cursor, answer_id):
+    cursor.execute("""SELECT * FROM comment WHERE answer_id = %(answer_id)s;""", {'answer_id': answer_id})
+    comment = cursor.fetchall()
+    return comment

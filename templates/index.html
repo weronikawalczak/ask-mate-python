@@ -1,27 +1,26 @@
 {% extends "base.html" %}
 {% block content %}
 <div class="row">
-    <div class="col"><h2>Top 5 questions: </h2></div>
     <div class="col text-right">
         <form action="/add-question" method="get">
-                <button class="btn btn-primary" type="submit">Ask a question</button>
+                <button class="btn btn-primary mb-2" type="submit">Ask a question</button>
         </form>
     </div>
 </div>
-<div class="row"><div class="col text-right">
-    <form action="#" method="get">
-        <button class="btn btn-default mb-3" type="submit">Show all</button>
-    </form>
-</div></div>
+<div class="row">
+    <h3>{% if request.path == '/latest' %} Latest 5 questions: {% else %} All questions: {% endif %}</h3>
+    <div class="col text-right">
+        <a href="/all"><button class="btn btn-default mb-3" type="submit">Show all</button></a><a href="/latest"> <button class="btn btn-default mb-3" type="submit">Latest</button></a>
+    </div>
+</div>
 
     {% for question in questions %}
-    <div class="row border">
-        <div><a href="/question/{{question.id}}/vote"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><span style="margin: 10px;"></div>
+    <div class="row border mb-2">
+        <div class="col-md-2 p-1"><a href="/question/{{question.id}}/vote"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><span style="margin: 10px;"></span> {{question.vote_number}} votes</div>
         <div class="col-md-1 p-2">{{question.view_number}} views</div>
-        <div class="col-md-1 p-2">{{question.vote_number}} votes</div>
-        <div class="col-md-2 p-2">{{question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
         <div class="col-md-3 p-2"><a href="/question/{{ question.id }}">{{question.title}}</a></div>
-        <div class="col-md-4 p-2">{{question.message}}</div>
+        <div class="col-md-5 p-2">{{question.message}}</div>
+        <div class="col-md-1 p-2 small text-right">{{question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
     </div>
     {% endfor %}
 {% endblock %}

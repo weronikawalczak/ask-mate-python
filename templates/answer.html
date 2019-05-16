@@ -1,9 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Edit question</h1>
+<h1>Edit answer</h1>
 <form action="/answer/{{answer.id}}/update" method="post">
     Message: <br/>
-    <textarea name="message"/>{{ answer.message }}</textarea><br><br/>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <textarea name="message" class="md-textarea form-control"/>{{ answer.message }}</textarea><br><br/>
+    <button type="submit" class="btn btn-primary">Save</button>  <a href="/question/{{answer.question_id}}"><button class="btn btn-default" type="button">Cancel</button></a>
 </form>
 {% endblock %}
