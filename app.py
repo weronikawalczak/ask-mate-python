@@ -6,19 +6,17 @@ import data_manager
 app = Flask(__name__)
 
 
-
-@app.route('/list')
+@app.route('/')
+@app.route('/all')
 def index():
     questions = question.get_data()
-    #first_ones = question.get_first()
     return render_template('index.html', questions=questions)
 
 
-@app.route('/')
-@app.route('/show_first')
-def show_first_five():
-    first_ones = question.get_first()
-    return render_template('index2.html', first_ones=first_ones)
+@app.route('/latest')
+def get_latest():
+    questions = question.get_latest()
+    return render_template('index.html', questions=questions)
 
 
 @app.route('/add-question')
@@ -41,7 +39,8 @@ def question_detail(question_id):
     question_answers = answer.get_question_answers(question_id)
     found_comments = question.get_comments(question_id)
     question.increment_view(question_id)
-    return render_template('question_details.html', question=found_question, answers=question_answers, comments=found_comments)
+    answers_comments = answer.get_answers_comments(question_answers)
+    return render_template('question_details.html', question=found_question, answers=question_answers, comments=found_comments, answers_comments=answers_comments)
 
 
 @app.route('/question/<question_id>/delete', methods=['GET'])
@@ -65,9 +64,9 @@ def update_question(question_id):
     return redirect('/question/' + question_id)
 
 
-@app.route('/question/<question_id>/new-comment')
+@app.route('/question/<question_id>/new-comment', methods=['GET'])
 def add_comment_question(question_id):
-    return render_template('add_comment.html', question_id=question_id)
+    return render_template('add_comment.html', subject_id=question_id, subject="question", question_id=question_id)
 
 
 @app.route('/question/<question_id>/new-comment', methods=['POST'])
@@ -132,6 +131,21 @@ def search():
     search_phrase = request.args.get('phrase')
     questions = data_manager.search(search_phrase)
     return render_template('index.html', questions=questions)
+
+
+@app.route('/answer/<answer_id>/new-comment')
+def add_comment_answer(answer_id):
+    question_id = answer.get_question_id(answer_id) #Only for cancel button
+    return render_template('add_comment.html', subject_id=answer_id, subject="answer", question_id=question_id)
+
+
+@app.route('/answer/<answer_id>/new-comment', methods=['POST'])
+def save_comment_answer(answer_id):
+    message = request.form['message']
+    answer.add_comment(answer_id, message)
+    question_id = answer.get_question_id(answer_id)
+    return redirect('/question/' + str(question_id))
+
 
 
 if __name__ == "__main__":

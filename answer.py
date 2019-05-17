@@ -18,7 +18,7 @@ def update_answer(answer_id, message):
 
 
 def get_question_id(answer_id):
-    return data_manager.get_question_id(answer_id)
+    return data_manager.get_question_id_by_answer_id(answer_id)
 
 
 def remove_answer(answer_id):
@@ -27,3 +27,14 @@ def remove_answer(answer_id):
 
 def vote_for_answer(answer_id):
     return data_manager.vote_for_answer(answer_id)
+
+
+def add_comment(answer_id, message):
+    return data_manager.add_comment_answer(answer_id, message)
+
+
+def get_answers_comments(answers):
+    answers_comments = {}
+    for answer in answers:
+        answers_comments[answer['id']] = data_manager.get_answer_comments(answer['id'])
+    return answers_comments
