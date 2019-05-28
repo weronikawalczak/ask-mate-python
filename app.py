@@ -2,6 +2,7 @@ from flask import Flask, render_template, redirect, request
 import question
 import answer
 import data_manager
+import user
 
 app = Flask(__name__)
 
@@ -149,6 +150,23 @@ def save_comment_answer(answer_id):
     answer.add_comment(answer_id, message)
     question_id = answer.get_question_id(answer_id)
     return redirect('/question/' + str(question_id))
+
+
+@app.route('/registration', methods=['GET'])
+def show_register_template():
+    return render_template('registration_login.html')
+
+
+@app.route('/registration', methods=['POST'])
+def register_user():
+    username = request.form['username']
+    password = request.form['password']
+    repeated_password = request.form['repeated_password']
+
+    try:
+        user.register_user(username, password, repeated_password)
+    except Exception as e:
+        return redirect('/registration?error_message='+str(e))
 
 
 if __name__ == "__main__":

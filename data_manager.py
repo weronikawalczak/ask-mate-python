@@ -156,3 +156,19 @@ def get_answer_comments(cursor, answer_id):
     cursor.execute("""SELECT * FROM comment WHERE answer_id = %(answer_id)s;""", {'answer_id': answer_id})
     comment = cursor.fetchall()
     return comment
+
+#USER
+
+
+@database_common.connection_handler
+def get_person_by_username(cursor, username):
+    cursor.execute("""SELECT * FROM person WHERE username = %(username)s;""", {'username': username})
+    person = cursor.fetchall()
+    return person
+
+
+@database_common.connection_handler
+def register_user(cursor, username, password):
+    cursor.execute("INSERT INTO person (username, password) VALUES (%s, %s)", (username, password))
+    person = cursor.fetchall()
+    return person
