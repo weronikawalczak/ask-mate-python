@@ -14,6 +14,21 @@ def register_user(username, password, repeated_password):
     return data_manager.register_user(username, hashed_pass)
 
 
+def login_user(username, password):
+    user_data = (data_manager.login_check(username, password))
+    if len(user_data) == 0:
+        return False
+    else:
+        return True
+
+
+def gain_reputation(counter):
+    user_id = "test"
+    data_manager.gain_reputation(user_id, counter)
+
+    #current user_id
+    #reputation '+5'
+    #insert reputation into db
 
 
 

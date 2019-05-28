@@ -175,6 +175,13 @@ def register_user(cursor, username, password):
 
 
 @database_common.connection_handler
+def login_check(cursor, username, password):
+    cursor.execute("SELECT username FROM person WHERE username = %(username)s AND password = %(password)s;", {'username': username, 'password': password})
+    person = cursor.fetchall()
+    return person
+
+
+@database_common.connection_handler
 def gain_reputation(cursor, id, counter):
     return cursor.execute("""UPDATE person 
                                 SET reputation = reputation + int(counter)
