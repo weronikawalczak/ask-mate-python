@@ -147,7 +147,6 @@ def save_comment_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
-
 if __name__ == "__main__":
     app.run(
         debug=True, # Allow verbose error reports
