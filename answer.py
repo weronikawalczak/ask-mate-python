@@ -5,8 +5,8 @@ def get_question_answers(question_id):
     return data_manager.get_answers_by_question_id(question_id)
 
 
-def add_answer(question_id, message, image):
-    return data_manager.add_answer(question_id, message, image)
+def add_answer(question_id, message, image, username):
+    return data_manager.add_answer(question_id, message, image, username)
 
 
 def get_answer(answer_id):
@@ -29,8 +29,8 @@ def vote_for_answer(answer_id):
     return data_manager.vote_for_answer(answer_id)
 
 
-def add_comment(answer_id, message):
-    return data_manager.add_comment_answer(answer_id, message)
+def add_comment(answer_id, message, username):
+    return data_manager.add_comment_answer(answer_id, message, username)
 
 
 def get_answers_comments(answers):

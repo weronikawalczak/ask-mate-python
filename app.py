@@ -32,7 +32,8 @@ def save_question():
     title = request.form['title']
     message = request.form['message']
     image = request.form['image']
-    id_of_new_question = question.save_question(title, message, image)
+    username = session['username']
+    id_of_new_question = question.save_question(title, message, image, username)
     return redirect('/question/' + str(id_of_new_question))
 
 
@@ -78,8 +79,9 @@ def add_comment_question(question_id):
 
 @app.route('/question/<question_id>/new-comment', methods=['POST'])
 def save_comment(question_id):
+    username = session['username']
     message = request.form['message']
-    question.add_comment(question_id, message)
+    question.add_comment(question_id, message, username)
     return redirect('/question/' + str(question_id))
 
 
@@ -93,9 +95,10 @@ def delete_comment(comment_id):
 #ANSWERS
 @app.route('/question/<question_id>/new-answer', methods=['POST'])
 def add_answer(question_id):
+    username = session['username']
     message = request.form['message']
     image = request.form['image']
-    answer.add_answer(question_id, message, image)
+    answer.add_answer(question_id, message, image, username)
     return redirect('/question/' + question_id)
 
 
@@ -124,7 +127,7 @@ def delete_answer(answer_id):
 def vote_for_answer(answer_id):
     answer.vote_for_answer(answer_id)
     question_id = answer.get_question_id(answer_id)
-    user.gain_reputation(5)
+    user.gain_reputation(session['username'], 5)
     return redirect('/question/' + str(question_id))
 
 
@@ -150,7 +153,8 @@ def add_comment_answer(answer_id):
 @app.route('/answer/<answer_id>/new-comment', methods=['POST'])
 def save_comment_answer(answer_id):
     message = request.form['message']
-    answer.add_comment(answer_id, message)
+    username = session['username']
+    answer.add_comment(answer_id, message, username)
     question_id = answer.get_question_id(answer_id)
     return redirect('/question/' + str(question_id))
 
@@ -168,8 +172,6 @@ def save_comment_answer(answer_id):
 #
 #
 #     return render_template('registration_login.html', error_massage=error_massage)
-
-
 
 
 @app.route('/registration', methods=['GET'])

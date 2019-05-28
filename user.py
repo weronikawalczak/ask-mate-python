@@ -1,6 +1,7 @@
 import data_manager
 import pass_service
 
+
 def register_user(username, password, repeated_password):
     #czy sie zgadza repeated z pass
     if password != repeated_password:
@@ -22,31 +23,7 @@ def login_user(username, password):
         return True
 
 
-def gain_reputation(counter):
-    user_id = "test"
-    data_manager.gain_reputation(user_id, counter)
-
-    #current user_id
-    #reputation '+5'
-    #insert reputation into db
+def gain_reputation(username, counter):
+    data_manager.gain_reputation(username, counter)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-def gain_reputation(counter):
-    user_id = "test"
-    data_manager.gain_reputation(user_id, counter)
-
-    #current user_id
-    #reputation '+5'
-    #insert reputation into db
