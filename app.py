@@ -6,13 +6,13 @@ import data_manager
 app = Flask(__name__)
 
 
-@app.route('/')
 @app.route('/all')
 def index():
     questions = question.get_data()
     return render_template('index.html', questions=questions)
 
 
+@app.route('/')
 @app.route('/latest')
 def get_latest():
     questions = question.get_latest()
@@ -40,7 +40,11 @@ def question_detail(question_id):
     found_comments = question.get_comments(question_id)
     question.increment_view(question_id)
     answers_comments = answer.get_answers_comments(question_answers)
-    return render_template('question_details.html', question=found_question, answers=question_answers, comments=found_comments, answers_comments=answers_comments)
+    return render_template('question_details.html',
+                           question=found_question,
+                           answers=question_answers,
+                           comments=found_comments,
+                           answers_comments=answers_comments)
 
 
 @app.route('/question/<question_id>/delete', methods=['GET'])
