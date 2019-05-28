@@ -10,3 +10,11 @@ def register_user(username, password, repeated_password):
     #salt password
 
     return data_manager.register_user(username, password)
+
+
+def login_user(username, password):
+    user_data = (data_manager.login_check(username, password))
+    if len(user_data) == 0:
+        return False
+    else:
+        return True
