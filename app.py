@@ -122,6 +122,7 @@ def delete_answer(answer_id):
 def vote_for_answer(answer_id):
     answer.vote_for_answer(answer_id)
     question_id = answer.get_question_id(answer_id)
+    user.gain_reputation(5)
     return redirect('/question/' + str(question_id))
 
 

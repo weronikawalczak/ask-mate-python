@@ -172,3 +172,10 @@ def register_user(cursor, username, password):
     cursor.execute("INSERT INTO person (username, password) VALUES (%s, %s)", (username, password))
     person = cursor.fetchall()
     return person
+
+
+@database_common.connection_handler
+def gain_reputation(cursor, id, counter):
+    return cursor.execute("""UPDATE person 
+                                SET reputation = reputation + int(counter)
+                                WHERE id = %(id)s;""", {'id': id})
