@@ -150,6 +150,17 @@ def save_comment_answer(answer_id):
     question_id = answer.get_question_id(answer_id)
     return redirect('/question/' + str(question_id))
 
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    error = None
+    if request.method == 'POST':
+        if request.form['username'] != 'admin' and request.form[password] != 'admin':
+            
+
+    return render_template('login.html')
+
+
+
 
 if __name__ == "__main__":
     app.run(
