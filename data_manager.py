@@ -168,9 +168,9 @@ def register_user(cursor, username, password):
 
 
 @database_common.connection_handler
-def login_check(cursor, username, password):
-    cursor.execute("SELECT username FROM person WHERE username = %(username)s AND password = %(password)s;", {'username': username, 'password': password})
-    person = cursor.fetchall()
+def get_user(cursor, username):
+    cursor.execute("SELECT * FROM person WHERE username = %(username)s ", {'username': username})
+    person = cursor.fetchone()
     return person
 
 

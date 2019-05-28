@@ -16,11 +16,12 @@ def register_user(username, password, repeated_password):
 
 
 def login_user(username, password):
-    user_data = (data_manager.login_check(username, password))
-    if len(user_data) == 0:
-        return False
+    user_data = data_manager.get_user(username)
+    if user_data:
+        if pass_service.verify_password(password, user_data['password']):
+            return user_data
     else:
-        return True
+        return False
 
 
 def gain_reputation(username, counter):

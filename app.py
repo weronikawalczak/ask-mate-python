@@ -198,25 +198,21 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 def login():
 
     if request.method == 'POST':
-        session['username'] = request.form['username_login']
-        result = user.login_user(session['username'], request.form['password_login'])
-        if result == True:
-            return redirect(url_for('index'))
+        result = user.login_user(request.form['username_login'], request.form['password_login'])
+        if result:
+            session['username'] = result['username']
+            session['user_id'] = result['id']
+            print("Logged in as " + request.form['username_login'])
+            return redirect('/')
         else:
-            print("cos")
-
-    return '''
-        <form method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
+            print("Error logging in as " + request.form['username_login'])
+            return redirect('/registration')
 
 
 @app.route('/logout')
 def logout():
     # remove the username from the session if it's there
-    session.pop('username', None)
+    session.clear()
     return redirect(url_for('index'))
 
 
