@@ -11,6 +11,7 @@
     <div class="col-md-2"><a href="/question/{{ question.id }}/new-comment">add a comment</a></div>
     <div class="col-md-2"><a href="/question/{{ question.id }}/edit">update question</a></div>
     <div class="col-md-2"><a href="/question/{{ question.id }}/delete">delete question</a></div>
+    <div class="col-md-auto small p-2">{{question.username}}</div>
 </div>
 
 <div class="row">
@@ -25,7 +26,7 @@
             <div class="col-md-auto small p-2 ">{{comment.message}}</div>
             <div class="col-md-auto small p-2">{{comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
             <div class="col-md-auto small p-2"><a href="/delete-comment/{{comment.id}}">delete comment</a></div>
-            <div class="col-md-auto small p-2">{{comment.username}}</div>
+            <div class="col-md-auto small p-2 ">{{comment.username}}</div>
         </div>
     {% endfor %}
 </div>

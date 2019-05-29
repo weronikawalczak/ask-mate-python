@@ -29,8 +29,8 @@ def vote_for_answer(answer_id):
     return data_manager.vote_for_answer(answer_id)
 
 
-def add_comment(answer_id, message, username):
-    return data_manager.add_comment_answer(answer_id, message, username)
+def add_comment(answer_id, message, user_id):
+    return data_manager.add_comment_answer(answer_id, message, user_id)
 
 
 def get_answers_comments(answers):
