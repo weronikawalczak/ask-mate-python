@@ -184,12 +184,16 @@ def register_user():
     username = request.form['username']
     password = request.form['password']
     repeated_password = request.form['repeated_password']
-
     try:
         user.register_user(username, password, repeated_password)
     except Exception as e:
         return redirect('/registration?error_message='+str(e))
 
+@app.route('/list_users')
+def list_users():
+    users_info = data_manager.list_users()
+    print(users_info)
+    return render_template('list_users.html', list_users=users_info)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 

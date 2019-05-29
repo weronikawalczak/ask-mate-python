@@ -167,6 +167,22 @@ def register_user(cursor, username, password):
     return person
 
 
+
+
+@database_common.connection_handler
+def list_users(cursor):
+    cursor.execute("SELECT "
+                   # "CAST (id AS VARCHAR),"
+                   "username AS User,"
+                   # "password,"
+                   "LEFT (CAST (registration_date as VARCHAR),10) AS registration_date,"
+                   "CAST (reputation as VARCHAR) "
+                   "FROM person "
+                   "ORDER BY username")
+
+    users = cursor.fetchall()
+    return users
+
 @database_common.connection_handler
 def get_user(cursor, username):
     cursor.execute("SELECT * FROM person WHERE username = %(username)s ", {'username': username})
@@ -179,5 +195,4 @@ def gain_reputation(cursor, username, counter):
     return cursor.execute("""UPDATE person 
                                 SET reputation = reputation + int(counter)
                                 WHERE username = %(username)s;""", {'username': username})
-
 
