@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<style>
+table {border-collapse: collapse;width: 100%;}
+th, td {text-align: left;padding: 8px;}
+tr:nth-child(even){background-color: #f2f2f2}
+th {background-color: #006aff;color: white;}
+</style>
+
+
+
+<table>
+    <tr>
+{% for name in list_users[0] %}
+        <th>{{name}}</th>
+{%endfor%}
+    </tr>
+    {% for user in list_users %}
+    <tr>
+        {% for detail in user %}
+        <td> {{ user[detail] }}</td>
+        {% endfor %}
+    </tr>
+    {% endfor%}
+</table>
+{% endblock %}
+
+</body>
+</html>

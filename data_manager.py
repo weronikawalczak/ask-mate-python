@@ -172,3 +172,17 @@ def register_user(cursor, username, password):
     cursor.execute("INSERT INTO person (username, password) VALUES (%s, %s)", (username, password))
     person = cursor.fetchall()
     return person
+
+@database_common.connection_handler
+def list_users(cursor):
+    cursor.execute("SELECT "
+                   # "CAST (id AS VARCHAR),"
+                   "username AS User,"
+                   # "password,"
+                   "LEFT (CAST (registration_date as VARCHAR),10) AS registration_date,"
+                   "CAST (reputation as VARCHAR) "
+                   "FROM person "
+                   "ORDER BY username")
+
+    users = cursor.fetchall()
+    return users
