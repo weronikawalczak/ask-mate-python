@@ -23,6 +23,7 @@
         <div class="col-md-3 p-2"><a href="/question/{{ question.id }}">{{question.title}}</a></div>
         <div class="col-md-5 p-2">{{question.message}}</div>
         <div class="col-md-1 p-2 small text-right">{{question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
+        <div class="col-md-1 p-2 small text-right">{{question.username}}</div>
     </div>
     {% endfor %}
 {% endblock %}

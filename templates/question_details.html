@@ -25,6 +25,7 @@
             <div class="col-md-auto small p-2 ">{{comment.message}}</div>
             <div class="col-md-auto small p-2">{{comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
             <div class="col-md-auto small p-2"><a href="/delete-comment/{{comment.id}}">delete comment</a></div>
+            <div class="col-md-auto small p-2">{{comment.username}}</div>
         </div>
     {% endfor %}
 </div>
@@ -41,7 +42,8 @@
             <div class="col-md-1"><a href="/answer/{{answer.id}}/new-comment">add comment</a></div>
             <div class="col-md-1"><a href="/answer/{{answer.id}}/edit">update answer</a></div>
             <div class="col-md-2"><a href="/answer/{{answer.id}}/delete">delete</a></div>
-            <div class="col-md-2 small">{{answer.submission_time.strftime("%Y-%m-%d %H:%M")}}</a></div>
+            <div class="col-md-2 small">{{answer.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
+            <div class="col-md-2 small">{{answer.username}}</div>
         </div>
             <div class="row">
                 <div class="col-md-3"></div>
@@ -54,6 +56,7 @@
                         <div class="col-md-auto small p-2 ">{{answer_comment.message}}</div>
                         <div class="col-md-auto small p-2">{{answer_comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
                         <div class="col-md-auto small p-2"><a href="/delete-comment/{{answer_comment.id}}">delete comment</a></div>
+                        <div class="col-md-auto small p-2">{{answer_comment.username}}</div>
                     </div>
                 {% endfor %}
                 </div>

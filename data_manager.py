@@ -20,8 +20,8 @@ def get_latest(cursor):
 
 
 @database_common.connection_handler
-def add_new_question(cursor, title, message, image):
-    cursor.execute("INSERT INTO question (title, message, image) VALUES (%s, %s, %s)", (title, message, image))
+def add_new_question(cursor, title, message, image, username):
+    cursor.execute("INSERT INTO question (title, message, image, username) VALUES (%s, %s, %s, %s)", (title, message, image, username))
     cursor.execute('SELECT LASTVAL()')  # Some psycopg2 magic to get the latest inserted id
     latest_added_question_id = cursor.fetchone()['lastval']
     return latest_added_question_id
@@ -49,8 +49,8 @@ def update_question(cursor, id, title, message, image):
 
 
 @database_common.connection_handler
-def add_comment(cursor, question_id, message):
-    return cursor.execute("INSERT INTO comment (question_id, message) VALUES (%s, %s)", (question_id, message))
+def add_comment(cursor, question_id, message, username):
+    return cursor.execute("INSERT INTO comment (question_id, message, username) VALUES (%s, %s, %s)", (question_id, message, username))
 
 
 @database_common.connection_handler
@@ -69,8 +69,8 @@ def get_answers_by_question_id(cursor, id):
 
 
 @database_common.connection_handler
-def add_answer(cursor, question_id, message, image):
-    return cursor.execute("INSERT INTO answer (question_id, message, image) VALUES (%s, %s, %s)", (question_id, message, image))
+def add_answer(cursor, question_id, message, image, username):
+    return cursor.execute("INSERT INTO answer (question_id, message, image, username) VALUES (%s, %s, %s, %s)", (question_id, message, image, username))
 
 
 @database_common.connection_handler
@@ -147,8 +147,8 @@ def increment_view(cursor, id):
 
 
 @database_common.connection_handler
-def add_comment_answer(cursor, answer_id, message):
-    return cursor.execute("INSERT INTO comment (answer_id, message) VALUES (%s, %s)", (answer_id, message))
+def add_comment_answer(cursor, answer_id, message, username):
+    return cursor.execute("INSERT INTO comment (answer_id, message, username) VALUES (%s, %s, %s)", (answer_id, message, username))
 
 
 @database_common.connection_handler
@@ -161,13 +161,6 @@ def get_answer_comments(cursor, answer_id):
 
 
 @database_common.connection_handler
-def get_person_by_username(cursor, username):
-    cursor.execute("""SELECT * FROM person WHERE username = %(username)s;""", {'username': username})
-    person = cursor.fetchall()
-    return person
-
-
-@database_common.connection_handler
 def register_user(cursor, username, password):
     cursor.execute("INSERT INTO person (username, password) VALUES (%s, %s)", (username, password))
     person = cursor.fetchall()
@@ -175,7 +168,16 @@ def register_user(cursor, username, password):
 
 
 @database_common.connection_handler
-def login_check(cursor, username, password):
-    cursor.execute("SELECT username FROM person WHERE username = %(username)s AND password = %(password)s;", {'username': username, 'password': password})
-    person = cursor.fetchall()
+def get_user(cursor, username):
+    cursor.execute("SELECT * FROM person WHERE username = %(username)s ", {'username': username})
+    person = cursor.fetchone()
     return person
+
+
+@database_common.connection_handler
+def gain_reputation(cursor, username, counter):
+    return cursor.execute("""UPDATE person 
+                                SET reputation = reputation + int(counter)
+                                WHERE username = %(username)s;""", {'username': username})
+
+

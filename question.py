@@ -13,8 +13,8 @@ def get_question(question_id):
     return data_manager.get_question_by_id(question_id)
 
 
-def save_question(title, message, image):
-    return data_manager.add_new_question(title, message, image)
+def save_question(title, message, image, username):
+    return data_manager.add_new_question(title, message, image, username)
 
 
 def remove_question(id):
@@ -25,8 +25,8 @@ def update_question(id, title, message, image):
     return data_manager.update_question(id, title, message, image)
 
 
-def add_comment(question_id, message):
-    return data_manager.add_comment(question_id, message)
+def add_comment(question_id, message, username):
+    return data_manager.add_comment(question_id, message, username)
 
 
 def get_comments(question_id):
