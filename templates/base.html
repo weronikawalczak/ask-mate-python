@@ -15,9 +15,18 @@
             <input type="text" placeholder="Ask mate.." name="phrase">
             <button type="submit"><i class="fa fa-search"></i></button>
         </form>
-        <form action="/registration">
-            <button type="submit" class="btn-primary">Zarejestruj się!</button>
-        </form>
+
+        {%if session.get('username')%}
+            Hello {{session.get('username')}}!
+            <form action="/logout">
+                <button type="submit" class="btn-primary">Logout</button>
+            </form>
+        {%else%}
+            <form action="/registration">
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+        {%endif%}
+        </br>
         <form action="/list_users">
             <button type="submit" class="btn-primary">Lista użytkowników</button>
         </form>

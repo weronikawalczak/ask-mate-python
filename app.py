@@ -185,7 +185,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
         result = user.login_user(request.form['username_login'], request.form['password_login'])
         if result:
@@ -210,3 +209,4 @@ if __name__ == "__main__":
         debug=True, # Allow verbose error reports
         port=5000 # Set custom port
     )
+
