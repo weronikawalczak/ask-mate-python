@@ -32,8 +32,8 @@ def save_question():
     title = request.form['title']
     message = request.form['message']
     image = request.form['image']
-    username = session['username']
-    id_of_new_question = question.save_question(title, message, image, username)
+    user_id = session['id']
+    id_of_new_question = question.save_question(title, message, image, user_id)
     return redirect('/question/' + str(id_of_new_question))
 
 
@@ -79,9 +79,9 @@ def add_comment_question(question_id):
 
 @app.route('/question/<question_id>/new-comment', methods=['POST'])
 def save_comment(question_id):
-    username = session['username']
+    user_id = session['user_id']
     message = request.form['message']
-    question.add_comment(question_id, message, username)
+    question.add_comment(question_id, message, user_id)
     return redirect('/question/' + str(question_id))
 
 
@@ -95,10 +95,10 @@ def delete_comment(comment_id):
 #ANSWERS
 @app.route('/question/<question_id>/new-answer', methods=['POST'])
 def add_answer(question_id):
-    username = session['username']
+    user_id = session['user_id']
     message = request.form['message']
     image = request.form['image']
-    answer.add_answer(question_id, message, image, username)
+    answer.add_answer(question_id, message, image, user_id)
     return redirect('/question/' + question_id)
 
 

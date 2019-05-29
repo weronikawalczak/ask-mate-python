@@ -20,8 +20,8 @@ def get_latest(cursor):
 
 
 @database_common.connection_handler
-def add_new_question(cursor, title, message, image, username):
-    cursor.execute("INSERT INTO question (title, message, image, username) VALUES (%s, %s, %s, %s)", (title, message, image, username))
+def add_new_question(cursor, title, message, image, user_id):
+    cursor.execute("INSERT INTO question (title, message, image, user_id) VALUES (%s, %s, %s, %s)", (title, message, image, user_id))
     cursor.execute('SELECT LASTVAL()')  # Some psycopg2 magic to get the latest inserted id
     latest_added_question_id = cursor.fetchone()['lastval']
     return latest_added_question_id
@@ -49,8 +49,8 @@ def update_question(cursor, id, title, message, image):
 
 
 @database_common.connection_handler
-def add_comment(cursor, question_id, message, username):
-    return cursor.execute("INSERT INTO comment (question_id, message, username) VALUES (%s, %s, %s)", (question_id, message, username))
+def add_comment(cursor, question_id, message, user_id):
+    return cursor.execute("INSERT INTO comment (question_id, message, user_id) VALUES (%s, %s, %s)", (question_id, message, user_id))
 
 
 @database_common.connection_handler
@@ -69,8 +69,8 @@ def get_answers_by_question_id(cursor, id):
 
 
 @database_common.connection_handler
-def add_answer(cursor, question_id, message, image, username):
-    return cursor.execute("INSERT INTO answer (question_id, message, image, username) VALUES (%s, %s, %s, %s)", (question_id, message, image, username))
+def add_answer(cursor, question_id, message, image, user_id):
+    return cursor.execute("INSERT INTO answer (question_id, message, image, user_id) VALUES (%s, %s, %s, %s)", (question_id, message, image, user_id))
 
 
 @database_common.connection_handler
