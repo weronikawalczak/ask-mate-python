@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, request, url_for, session, escape
+from flask import Flask, render_template, redirect, request, url_for, session, escape, flash
 import question
 import answer
 import data_manager
@@ -11,8 +11,11 @@ app = Flask(__name__)
 def index():
     questions = question.get_data()
     if 'username' in session:
-        return 'Logged in as %s' % escape(session['username'])
-    return render_template('index.html', questions=questions)
+        user_data = session['username']
+    else:
+        return render_template('index.html', questions=questions)
+    #     flash('Logged in as %s' % escape(session['username']))
+    return render_template('index.html', questions=questions, user_data=user_data)
 
 
 @app.route('/')
@@ -154,23 +157,6 @@ def save_comment_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error_massage = None
-#     username_data = data_manager.
-#     if request.method == 'POST':
-#         if request.form['username'] = 'admin' and request.form['password'] != 'admin':
-#             error_massage = 'Invalid data. Please try again'
-#         else:
-#             redirect(url_for('/'))
-#
-#
-#
-#     return render_template('registration_login.html', error_massage=error_massage)
-
-
-
-
 @app.route('/registration', methods=['GET'])
 def show_register_template():
     return render_template('registration_login.html')
@@ -193,21 +179,15 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-
     if request.method == 'POST':
         session['username'] = request.form['username_login']
         result = user.login_user(session['username'], request.form['password_login'])
         if result == True:
-            return redirect(url_for('index'))
+            flash('You were just logged in!')
+            return redirect(url_for('get_latest'))
         else:
-            print("cos")
-
-    return '''
-        <form method="post">
-            <p><input type=text name=username>
-            <p><input type=submit value=Login>
-        </form>
-    '''
+            return redirect('/')
+    return redirect('/')
 
 
 @app.route('/logout')

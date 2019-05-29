@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+
+
+
 <div class="row">
     <div class="col text-right">
         <form action="/add-question" method="get">
@@ -13,7 +16,6 @@
         <a href="/all"><button class="btn btn-default mb-3" type="submit">Show all</button></a><a href="/latest"> <button class="btn btn-default mb-3" type="submit">Latest</button></a>
     </div>
 </div>
-
     {% for question in questions %}
     <div class="row border mb-2">
         <div class="col-md-2 p-1"><a href="/question/{{question.id}}/vote"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><span style="margin: 10px;"></span> {{question.vote_number}} votes</div>
