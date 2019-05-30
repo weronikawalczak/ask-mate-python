@@ -49,7 +49,7 @@
 {% endif %}
     {% for answer in answers %}
         <div class="row border">
-            <div class="col-md-2"><a href="/answer/{{answer.id}}/vote"><i class="fa fa-thumbs-up" style="cursor: pointer;"></i></a><span style="margin: 10px;">{{answer.vote_number}}</span>votes</div>
+            <div class="col-md-2"><a href="/answer/{{answer.id}}/vote/1/a/{{question.id}}"><i class="fa fa-thumbs-up" style="cursor: pointer;"></i></a><a href="/answer/{{answer.id}}/vote/-1/a/{{question.id}}"><i class="fa fa-thumbs-down" style="cursor: pointer;"></i></a><span style="margin: 10px;">{{answer.vote_number}}</span>votes</div>
             <div class="col-md-4">{{answer.message}}</div>
             {% if session %}
                 <div class="col-md-1"><a href="/answer/{{answer.id}}/new-comment">add comment</a></div>
