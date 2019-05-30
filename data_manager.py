@@ -234,8 +234,9 @@ def get_user_id(cursor, username):
 
 @database_common.connection_handler
 def get_questions_by_user_id(cursor, user_id):
-    cursor.execute("SELECT * FROM question join person on question.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
+    cursor.execute("SELECT question.*, person.username FROM question join person on question.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
     title = cursor.fetchall()
+    print(title)
     return title
 
 
@@ -249,7 +250,6 @@ def get_answer_by_user_id(cursor, user_id):
 def get_comments_by_user_id(cursor, user_id):
     cursor.execute("SELECT * FROM comment join person on comment.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
     title = cursor.fetchall()
-    print(title)
     return title
 
 

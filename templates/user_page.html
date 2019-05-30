@@ -5,7 +5,7 @@
 <h1>{{ user_question[0].username }}</h1>
 <h1>Question Table</h1>
 {% for question in user_question %}
-    <div>{{ question.title }}</div>
+    <div><a href="/question/{{ question.id }}">{{ question.title }}</a></div>
     <div>{{ question.submission_time }}</div>
 {% endfor %}
 
