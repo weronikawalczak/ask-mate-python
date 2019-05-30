@@ -177,8 +177,10 @@ def register_user():
     repeated_password = request.form['repeated_password']
     try:
         user.register_user(username, password, repeated_password)
+        return redirect('/')
     except Exception as e:
         return redirect('/registration?error_message='+str(e))
+
 
 
 @app.route('/list_users')

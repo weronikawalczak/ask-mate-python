@@ -191,9 +191,7 @@ def get_answer_comments(cursor, answer_id):
 #USER
 @database_common.connection_handler
 def register_user(cursor, username, password):
-    cursor.execute("INSERT INTO person (username, password) VALUES (%s, %s)", (username, password))
-    person = cursor.fetchall()
-    return person
+    return cursor.execute("INSERT INTO person (username, password) VALUES (%s, %s)", (username, password))
 
 
 @database_common.connection_handler
@@ -236,7 +234,6 @@ def get_user_id(cursor, username):
 def get_questions_by_user_id(cursor, user_id):
     cursor.execute("SELECT question.*, person.username FROM question join person on question.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
     title = cursor.fetchall()
-    print(title)
     return title
 
 
@@ -245,6 +242,7 @@ def get_answer_by_user_id(cursor, user_id):
     cursor.execute("SELECT * FROM answer join person on answer.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
     title = cursor.fetchall()
     return title
+
 
 @database_common.connection_handler
 def get_comments_by_user_id(cursor, user_id):
