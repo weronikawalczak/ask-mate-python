@@ -2,9 +2,11 @@
 {% block content %}
 <div class="row">
     <div class="col text-right">
-        <form action="/add-question" method="get">
+        {% if session %}
+            <form action="/add-question" method="get">
                 <button class="btn btn-primary mb-2" type="submit">Ask a question</button>
-        </form>
+            </form>
+        {% endif %}
     </div>
 </div>
 <div class="row">

@@ -14,6 +14,9 @@
                 <input type="password" name="repeated_password" placeholder="Powtórz hasło">
                 <button>Zarejestruj się</button>
             </form>
+            {% if request.args.get('error_message') %}
+                {{ request.args.get('error_message') }}
+            {% endif %}
         </div>
     </div>
 
