@@ -1,3 +1,4 @@
+from flask import session, redirect, render_template
 import data_manager
 import pass_service
 
@@ -7,7 +8,9 @@ def register_user(username, password, repeated_password):
     if password != repeated_password:
         raise Exception('Passwords don\'t match')
 
-    #check if not in db already
+    #check if pass is empty
+    if password == "":
+        raise Exception('Password cannot be empty')
 
     #salt password
     hashed_pass = pass_service.hash_password(password)
@@ -28,3 +31,10 @@ def gain_reputation(username, counter):
     data_manager.gain_reputation(username, counter)
 
 
+def logged_in(function):
+    def wrapper():
+        if session:
+            return function()
+        else:
+            return redirect('/')
+    return wrapper

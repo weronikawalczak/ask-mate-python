@@ -10,12 +10,7 @@ app = Flask(__name__)
 @app.route('/all')
 def index():
     questions = question.get_data()
-    if 'username' in session:
-        user_data = session['username']
-    else:
-        return render_template('index.html', questions=questions)
-    #     flash('Logged in as %s' % escape(session['username']))
-    return render_template('index.html', questions=questions, user_data=user_data)
+    return render_template('index.html', questions=questions)
 
 
 @app.route('/')
@@ -26,6 +21,7 @@ def get_latest():
 
 
 @app.route('/add-question')
+@user.logged_in
 def add_question():
     return render_template('add_question.html')
 
@@ -35,8 +31,8 @@ def save_question():
     title = request.form['title']
     message = request.form['message']
     image = request.form['image']
-    username = session['username']
-    id_of_new_question = question.save_question(title, message, image, username)
+    user_id = session['user_id']
+    id_of_new_question = question.save_question(title, message, image, user_id)
     return redirect('/question/' + str(id_of_new_question))
 
 
@@ -51,7 +47,8 @@ def question_detail(question_id):
                            question=found_question,
                            answers=question_answers,
                            comments=found_comments,
-                           answers_comments=answers_comments)
+                           answers_comments=answers_comments,
+                           username=session.get('username'))
 
 
 @app.route('/question/<question_id>/delete', methods=['GET'])
@@ -82,9 +79,9 @@ def add_comment_question(question_id):
 
 @app.route('/question/<question_id>/new-comment', methods=['POST'])
 def save_comment(question_id):
-    username = session['username']
+    user_id = session['user_id']
     message = request.form['message']
-    question.add_comment(question_id, message, username)
+    question.add_comment(question_id, message, user_id)
     return redirect('/question/' + str(question_id))
 
 
@@ -98,10 +95,10 @@ def delete_comment(comment_id):
 #ANSWERS
 @app.route('/question/<question_id>/new-answer', methods=['POST'])
 def add_answer(question_id):
-    username = session['username']
+    user_id = session['user_id']
     message = request.form['message']
     image = request.form['image']
-    answer.add_answer(question_id, message, image, username)
+    answer.add_answer(question_id, message, image, user_id)
     return redirect('/question/' + question_id)
 
 
@@ -156,27 +153,9 @@ def add_comment_answer(answer_id):
 @app.route('/answer/<answer_id>/new-comment', methods=['POST'])
 def save_comment_answer(answer_id):
     message = request.form['message']
-    username = session['username']
-    answer.add_comment(answer_id, message, username)
+    answer.add_comment(answer_id, message, session.get('user_id'))
     question_id = answer.get_question_id(answer_id)
     return redirect('/question/' + str(question_id))
-
-
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error_massage = None
-#     username_data = data_manager.
-#     if request.method == 'POST':
-#         if request.form['username'] = 'admin' and request.form['password'] != 'admin':
-#             error_massage = 'Invalid data. Please try again'
-#         else:
-#             redirect(url_for('/'))
-#
-#
-#
-#     return render_template('registration_login.html', error_massage=error_massage)
-
-
 
 
 @app.route('/registration', methods=['GET'])
@@ -194,11 +173,13 @@ def register_user():
     except Exception as e:
         return redirect('/registration?error_message='+str(e))
 
+
 @app.route('/list_users')
 def list_users():
     users_info = data_manager.list_users()
     print(users_info)
     return render_template('list_users.html', list_users=users_info)
+
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -208,20 +189,13 @@ def login():
     if request.method == 'POST':
         result = user.login_user(request.form['username_login'], request.form['password_login'])
         if result:
-            session['username'] = result['username']
+            session['username'] = request.form['username_login']
             session['user_id'] = result['id']
             print("Logged in as " + request.form['username_login'])
             return redirect('/')
-        session['username'] = request.form['username_login']
-        result = user.login_user(session['username'], request.form['password_login'])
-        if result == True:
-            flash('You were just logged in!')
-            return redirect(url_for('get_latest'))
         else:
             print("Error logging in as " + request.form['username_login'])
             return redirect('/registration')
-            return redirect('/')
-    return redirect('/')
 
 
 @app.route('/logout')
@@ -236,3 +210,4 @@ if __name__ == "__main__":
         debug=True, # Allow verbose error reports
         port=5000 # Set custom port
     )
+
