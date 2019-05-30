@@ -210,7 +210,7 @@ def logout():
 
 
 @app.route('/user/<user_id>')
-def user_page_render(user_id):
+def user_page_render():
     return render_template('user_page.html')
 
 
