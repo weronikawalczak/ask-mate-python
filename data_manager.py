@@ -229,7 +229,27 @@ def gain_reputation(cursor, username, counter):
 def get_user_id(cursor, username):
     cursor.execute("SELECT id FROM person WHERE username = %(username)s", {'username': username})
     user_id = cursor.fetchall()
-
     return user_id
+
+
+@database_common.connection_handler
+def get_questions_by_user_id(cursor, user_id):
+    cursor.execute("SELECT * FROM question join person on question.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
+    title = cursor.fetchall()
+    return title
+
+
+@database_common.connection_handler
+def get_answer_by_user_id(cursor, user_id):
+    cursor.execute("SELECT * FROM answer join person on answer.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
+    title = cursor.fetchall()
+    return title
+
+@database_common.connection_handler
+def get_comments_by_user_id(cursor, user_id):
+    cursor.execute("SELECT * FROM comment join person on comment.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
+    title = cursor.fetchall()
+    print(title)
+    return title
 
 

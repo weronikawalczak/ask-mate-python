@@ -17,7 +17,7 @@
         </form>
 
         {%if session.get('username')%}
-            Hello {{session.get('username')}}!
+           <a href="/user/{{session.get('user_id')}}" methods="POST"><small> Hello {{session.get('username')}}!</small></a>
             <form action="/logout">
                 <button type="submit" class="btn-primary">Logout</button>
             </form>

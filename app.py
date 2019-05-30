@@ -207,18 +207,17 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/user/<user_id>')
-def user_page_render():
-    return render_template('user_page.html')
+# @app.route('/user/<user_id>')
+# def user_page_render():
+#     return render_template('user_page.html')
 
 
-@app.route('/user/<user_id>', methods=['POST'])
+@app.route('/user/<user_id>', methods=['POST', 'GET'])
 def user_page(user_id):
     user_question = user.get_questions_by_user_id(user_id)
     user_answers = user.get_answers_by_user_id(user_id)
     user_comments = user.get_comments_by_user_id(user_id)
-    return render_template('user_page.html', user_question=user_question,
-                           user_answers=user_answers, user_comments=user_comments)
+    return render_template('user_page.html', user_question=user_question, user_answers=user_answers, user_comments=user_comments)
 
 
 if __name__ == "__main__":

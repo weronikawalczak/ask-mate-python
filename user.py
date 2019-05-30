@@ -38,3 +38,15 @@ def logged_in(function):
         else:
             return redirect('/')
     return wrapper
+
+
+def get_questions_by_user_id(user_id):
+    return data_manager.get_questions_by_user_id(user_id)
+
+
+def get_answers_by_user_id(user_id):
+    return data_manager.get_answer_by_user_id(user_id)
+
+
+def get_comments_by_user_id(user_id):
+    return data_manager.get_comments_by_user_id(user_id)

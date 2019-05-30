@@ -2,31 +2,24 @@
 {% block content %}
 <body>
 
+<h1>{{ user_question[0].username }}</h1>
+<h1>Question Table</h1>
 {% for question in user_question %}
-
-    <div>
-     {{ question  }}
-    </div>
-
+    <div>{{ question.title }}</div>
+    <div>{{ question.submission_time }}</div>
 {% endfor %}
 
+<h1>Answer Table</h1>
 {% for answer in user_answers %}
-
-    <div>
-     {{ answer  }}
-    </div>
-
+    <div>{{ answer.message }}</div>
+    <div>{{ answer.submission_time }}</div>
 {% endfor %}
 
+<h1>Comments Table</h1>
 {% for comment in user_comments %}
-
-    <div>
-    {{ comment  }}
-    </div>
-
+    <div>{{ comment.message }}</div>
+    <div>{{ comment.submission_time }}</div>
 {% endfor %}
-
-
 </body>
 
 {% endblock %}
