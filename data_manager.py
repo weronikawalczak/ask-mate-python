@@ -19,6 +19,8 @@ def get_latest(cursor):
     return questions
 
 
+
+
 @database_common.connection_handler
 def add_new_question(cursor, title, message, image, username):
     cursor.execute("INSERT INTO question (title, message, image, username) VALUES (%s, %s, %s, %s)", (title, message, image, username))
@@ -115,10 +117,10 @@ def search(cursor, search_term):
 
 
 @database_common.connection_handler
-def vote_for_question(cursor, id):
+def vote_for_question(cursor, id, value):
     return cursor.execute("""UPDATE question 
-                                SET vote_number = vote_number + 1
-                                WHERE id = %(id)s;""", {'id': id})
+                                SET vote_number = vote_number + %(value)s
+                                WHERE id = %(id)s;""", {'id': id, 'value': value})
 
 
 @database_common.connection_handler
@@ -195,4 +197,13 @@ def gain_reputation(cursor, username, counter):
     return cursor.execute("""UPDATE person 
                                 SET reputation = reputation + int(counter)
                                 WHERE username = %(username)s;""", {'username': username})
+
+
+@database_common.connection_handler
+def get_user_id(cursor, username):
+    cursor.execute("SELECT id FROM person WHERE username = %(username)s", {'username': username})
+    user_id = cursor.fetchall()
+
+    return user_id
+
 

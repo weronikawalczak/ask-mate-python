@@ -16,7 +16,7 @@
 
     {% for question in questions %}
     <div class="row border mb-2">
-        <div class="col-md-2 p-1"><a href="/question/{{question.id}}/vote"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><span style="margin: 10px;"></span> {{question.vote_number}} votes</div>
+        <div class="col-md-2 p-1"><a href="/question/{{question.id}}/vote/1"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><a href="/question/{{question.id}}/vote/-1"><i class="fa fa-thumbs-down p-2" style="cursor: pointer;"></i></a> {{question.vote_number}} votes</div>
         <div class="col-md-1 p-2">{{question.view_number}} views</div>
         <div class="col-md-3 p-2"><a href="/question/{{ question.id }}">{{question.title}}</a></div>
         <div class="col-md-5 p-2">{{question.message}}</div>

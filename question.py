@@ -33,8 +33,8 @@ def get_comments(question_id):
     return data_manager.get_comments(question_id)
 
 
-def vote_for_question(question_id):
-    return data_manager.vote_for_question(question_id)
+def vote_for_question(question_id, value):
+    return data_manager.vote_for_question(question_id, value)
 
 
 def delete_comment(comment_id):

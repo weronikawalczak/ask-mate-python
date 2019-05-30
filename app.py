@@ -3,6 +3,7 @@ import question
 import answer
 import data_manager
 import user
+import vote_manager
 
 app = Flask(__name__)
 
@@ -131,9 +132,10 @@ def vote_for_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
-@app.route('/question/<question_id>/vote')
-def vote_for_question(question_id):
-    question.vote_for_question(question_id)
+@app.route('/question/<question_id>/vote/<rating>')
+def vote_for_question(question_id, rating):
+    username = session['username']
+    vote_manager.vote_analize(username, question_id, int(rating))
     return redirect('/')
 
 
