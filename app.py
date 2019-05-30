@@ -193,18 +193,17 @@ def list_users():
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        result = user.login_user(request.form['username_login'], request.form['password_login'])
-        if result:
-            session['username'] = request.form['username_login']
-            session['user_id'] = result['id']
-            print("Logged in as " + request.form['username_login'])
-            return redirect('/')
-        else:
-            print("Error logging in as " + request.form['username_login'])
-            return redirect('/registration')
+    result = user.login_user(request.form['username_login'], request.form['password_login'])
+    if result:
+        session['username'] = request.form['username_login']
+        session['user_id'] = result['id']
+        print("Logged in as " + request.form['username_login'])
+        return redirect('/')
+    else:
+        print("Error logging in")
+        return redirect('/registration?error_message=' + "Error logging in")
 
 
 @app.route('/logout')

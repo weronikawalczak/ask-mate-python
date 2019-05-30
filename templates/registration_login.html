@@ -1,90 +1,62 @@
 {% extends "base.html" %}
 {% block content %}
 <body>
-    <div class="content">
-        <div class="card">
-            <h2>Rejestracja</h2>
-            <form action="/registration" method="post">
-                <input type="text" name="username" placeholder="Wpisz swoje imię">
-                <input type="password" name="password" placeholder="Wpisz hasło">
-                <input type="password" name="repeated_password" placeholder="Powtórz hasło">
-                <button>Zarejestruj się</button>
-            </form>
-            {% if request.args.get('error_message') %}
-                {{ request.args.get('error_message') }}
-            {% endif %}
-        </div>
-    </div>
-
-
-<div class="content">
-        <div class="card">
-            <h2>Login</h2>
-            <form action="/login" method="post">
-                <input type="text" name="username_login" placeholder="Wpisz swoje imię">
-                <input type="password" name="password_login" placeholder="Wpisz hasło">
-                <button>Login in</button>
-            </form>
-        </div>
-    </div>
-
-</br></br></br></br></br>
-
 <div class="container">
     <div class="row">
     <aside class="col-sm-6">
 <div class="card">
-<article class="card-body">
-<h4 class="card-title mb-4 mt-1 text-center">Register</h4>
-    <hr>
-	 <form>
-    <div class="form-group">
-    	<label>Your login</label>
-        <input name="" class="form-control" placeholder="login" type="email">
-    </div> <!-- form-group// -->
-    <div class="form-group">
-    	<label>Your password</label>
-        <input class="form-control" placeholder="******" type="password">
-    </div> <!-- form-group// -->
-        <div class="form-group">
-    	<label>Repeat password</label>
-        <input class="form-control" placeholder="******" type="password">
-    </div> <!-- form-group// -->
-    <div class="form-group">
-    </div> <!-- form-group// -->
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-block"> Register  </button>
-    </div> <!-- form-group// -->
-</form>
-</article>
-</div> <!-- card.// -->
-
-	</aside> <!-- col.// -->
-	<aside class="col-sm-6">
-
-<div class="card">
-<article class="card-body">
-	<h4 class="card-title mb-4 mt-1 text-center">Sign in</h4>
-	<hr>
-	<form>
-    <div class="form-group">
-        <input name="" class="form-control" placeholder="Login" type="email">
-    </div> <!-- form-group// -->
-    <div class="form-group">
-        <input class="form-control" placeholder="******" type="password">
-    </div> <!-- form-group// -->
-    <div class="row">
-        <div class="col-md-12">
+    <article class="card-body">
+    <h4 class="card-title mb-4 mt-1 text-center">Register</h4>
+        <hr>
+        <form action="/registration" method="post">
             <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                <label>Your login</label>
+                <input type="text" name="username" class="form-control" placeholder="login">
             </div> <!-- form-group// -->
-        </div>
-    </div> <!-- .row// -->
-</form>
-</article>
+            <div class="form-group">
+                <label>Your password</label>
+                <input name="password" class="form-control" placeholder="******" type="password">
+            </div> <!-- form-group// -->
+                <div class="form-group">
+                <label>Repeat password</label>
+                <input name="repeated_password" class="form-control" placeholder="******" type="password">
+            </div> <!-- form-group// -->
+            <div class="form-group">
+            </div> <!-- form-group// -->
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary btn-block"> Register </button>
+            </div> <!-- form-group// -->
+        </form>
+    </article>
 </div> <!-- card.// -->
 
-	</aside> <!-- col.// -->
+</aside> <!-- col.// -->
+<aside class="col-sm-6">
+    <div class="card">
+    <article class="card-body">
+        <h4 class="card-title mb-4 mt-1 text-center">Sign in</h4>
+        <hr>
+        <form action="/login" method="post">
+            <div class="form-group">
+                <input name="username_login" class="form-control" placeholder="Login">
+            </div> <!-- form-group// -->
+            <div class="form-group">
+                <input name="password_login" class="form-control" placeholder="******" type="password">
+            </div> <!-- form-group// -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Login  </button>
+                    </div> <!-- form-group// -->
+                </div>
+            </div> <!-- .row// -->
+        </form>
+    </article>
+    </div> <!-- card.// -->
+     {% if request.args.get('error_message') %}
+        {{ request.args.get('error_message') }}
+     {% endif %}
+</aside> <!-- col.// -->
 </div> <!-- row.// -->
 
 </div>

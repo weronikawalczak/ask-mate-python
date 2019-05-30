@@ -19,6 +19,9 @@ def register_user(username, password, repeated_password):
 
 
 def login_user(username, password):
+    if username == "" or password == "":
+        return False
+
     user_data = data_manager.get_user(username)
     if user_data:
         if pass_service.verify_password(password, user_data['password']):
