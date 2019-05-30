@@ -246,7 +246,7 @@ def get_answer_by_user_id(cursor, user_id):
 
 @database_common.connection_handler
 def get_comments_by_user_id(cursor, user_id):
-    cursor.execute("SELECT * FROM comment join person on comment.user_id = person.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
+    cursor.execute("SELECT comment.*, answer.question_id as answer_question_id FROM comment join person on comment.user_id = person.id full outer join answer on comment.answer_id = answer.id WHERE person.id = %(user_id)s;", {'user_id': user_id})
     title = cursor.fetchall()
     return title
 
