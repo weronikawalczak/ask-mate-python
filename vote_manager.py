@@ -23,9 +23,9 @@ def check_vote_validation(cursor, username, counter):
 
 def vote_analize(user_id, target_id, value, vote_for):
     valid_data_in_table = (check_votes(user_id, target_id, vote_for))
-    print(valid_data_in_table[0])
+    # print(valid_data_in_table[0])
     if len(valid_data_in_table) == 0:
-        vote_counter_input(vote_for, target_id, user_id, value)
+        new_vote(vote_for, target_id, user_id, value)
     else:
         vote_id = valid_data_in_table[0]['id']
         if valid_data_in_table[0]['user_vote'] > 0 and value < 0:
@@ -47,12 +47,14 @@ def change_vote(vote_id, value, target_id, vote_for):
         answer.vote_for_answer(target_id, value)
         vote_counter_update(vote_id, value)
 
-    # else:
-    #     print('nie')
-    # print('up', poss_vote_up)
-    # print('down', poss_vote_down)
-
-
+def new_vote(vote_for, target_id, user_id, value):
+    if vote_for == 'q':
+        question.vote_for_question(target_id, value)
+        vote_counter_input(vote_for, target_id, user_id, value)
+    elif vote_for == 'a':
+        answer.vote_for_answer(target_id, value)
+        vote_counter_input(vote_for, target_id, user_id, value)
+        
 @database_common.connection_handler
 def vote_counter_input(cursor, vote_for, target, user_id, value):
     print('dodane do bazy')
