@@ -177,9 +177,9 @@ def register_user():
     repeated_password = request.form['repeated_password']
     try:
         user.register_user(username, password, repeated_password)
-        return redirect('/')
+        return redirect('/registration?info_message=You have been successfully registered, please sign in now')
     except Exception as e:
-        return redirect('/registration?error_message='+str(e))
+        return redirect('/registration?info_message='+str(e))
 
 
 
@@ -203,7 +203,7 @@ def login():
         return redirect('/')
     else:
         print("Error logging in")
-        return redirect('/registration?error_message=' + "Error logging in")
+        return redirect('/registration?info_message=' + "Error logging in")
 
 
 @app.route('/logout')

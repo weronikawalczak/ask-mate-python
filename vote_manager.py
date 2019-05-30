@@ -7,9 +7,9 @@ import answer
 @database_common.connection_handler
 def check_votes(cursor, user_id, target_id, vote_for):
     cursor.execute("""SELECT * 
-                                FROM votes_counter
-                                WHERE user_id = %(user_id)s AND target_id = %(target_id)s AND vote_for = %(vote_for)s;""",
-                   {'user_id': user_id, 'target_id':target_id, 'vote_for':vote_for})
+                      FROM votes_counter
+                      WHERE user_id = %(user_id)s AND target_id = %(target_id)s AND vote_for = %(vote_for)s;""",
+                      {'user_id': str(user_id), 'target_id': str(target_id), 'vote_for': str(vote_for)})
     vote_data = cursor.fetchall()
     return vote_data
 
@@ -18,7 +18,6 @@ def check_vote_validation(cursor, username, counter):
     cursor.execute("""SELECT * 
                                 FROM votes_counter""")
     vote_data = cursor.fetchall()
-    print(session['username'])
     return vote_data
 
 def vote_analize(user_id, target_id, value, vote_for):

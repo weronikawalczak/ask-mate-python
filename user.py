@@ -1,4 +1,4 @@
-from flask import session, redirect, render_template
+from flask import session, redirect
 import data_manager
 import pass_service
 
@@ -11,6 +11,9 @@ def register_user(username, password, repeated_password):
     #check if pass is empty
     if password == "":
         raise Exception('Password cannot be empty')
+
+    if username == "":
+        raise Exception('Username cannot be empty')
 
     #salt password
     hashed_pass = pass_service.hash_password(password)
