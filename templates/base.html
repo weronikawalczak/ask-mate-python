@@ -17,19 +17,21 @@
         </form>
 
         {%if session.get('username')%}
+        <div style="margin: 10px;">
            <a href="/user/{{session.get('user_id')}}" methods="POST"><small> Hello {{session.get('username')}}!</small></a>
+        </div>
+        <div>
             <form action="/logout">
-                <button type="submit" class="btn-primary">Logout</button>
+                <button type="submit" class="btn btn-primary">Logout</button>
             </form>
+        </div>
         {%else%}
+        <div style="margin: 10px;">
             <form action="/registration">
-                <button type="submit" class="btn-primary">Login</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
+        </div>
         {%endif%}
-        </br>
-        <form action="/list_users">
-            <button type="submit" class="btn-primary">List of Users</button>
-        </form>
     </nav>
 <div class="container">
     {% block content %}

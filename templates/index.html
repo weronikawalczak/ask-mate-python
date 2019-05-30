@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-
-
-
 <div class="row">
     <div class="col text-right">
         {% if session %}
@@ -12,13 +9,25 @@
             </form>
         {% endif %}
     </div>
+    <div>
+        <form action="/list_users">
+            <button type="submit" class="btn btn-primary mb-2">List of Users</button>
+        </form>
+     </div>
 </div>
 <div class="row">
-    <h3>{% if request.path == '/latest'%} Latest 5 questions: {% else %} All questions: {% endif %}</h3>
     <div class="col text-right">
-        <a href="/all"><button class="btn btn-default mb-3" type="submit">Show all</button></a><a href="/latest"> <button class="btn btn-default mb-3" type="submit">Latest</button></a>
+        <form action="/all" method="get">
+            <button type="submit" class="btn btn-default">Show all</button>
+        </form>
+    </div>
+    <div>
+        <form action="/latest" method="get">
+            <button type="submit" class="btn btn-default mb-3">Latest</button>
+        </form>
     </div>
 </div>
+<h3>{% if request.path == '/latest'%} Latest 5 questions: {% else %} All questions: {% endif %}</h3>
     {% for question in questions %}
     <div class="row border mb-2">
         <div class="col-md-2 p-1"><a href="/question/{{question.id}}/vote/1/q"><i class="fa fa-thumbs-up p-2" style="cursor: pointer;"></i></a><a href="/question/{{question.id}}/vote/-1/q"><i class="fa fa-thumbs-down p-2" style="cursor: pointer;"></i></a> {{question.vote_number}} votes</div>
