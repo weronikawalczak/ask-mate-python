@@ -2,37 +2,44 @@
 {% block content %}
 <body>
 
-<h1>{{ user_question[0].username }}</h1>
+<h1>{{ session['username'] }}</h1>
 <hr style="width: 100%; border-top: 1px solid #007bff;">
-<h2>Questions:</h2>
-{% for question in user_question %}
- <div class="row">
-     <div class="col-md-2 border"><a href="/question/{{ question.id }}">{{ question.title }}</a></div>
-    <div class="col-md-2 border">{{ question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
- </div>
-{% endfor %}
 
-<h2>Answers:</h2>
-{% for answer in user_answers %}
-    <div class="row">
-        <div class="col-md-2 border"><a href="/question/{{ answer.question_id }}">{{ answer.message }}</a></div>
-        <div class="col-md-2 border">{{ answer.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
-    </div>
-{% endfor %}
+{% if user_question|length > 0 %}
+    <h2>Questions:</h2>
+    {% for question in user_question %}
+     <div class="row">
+         <div class="col-md-2 border"><a href="/question/{{ question.id }}">{{ question.title }}</a></div>
+        <div class="col-md-2 border">{{ question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
+     </div>
+    {% endfor %}
+{% endif %}
 
-<h2>Comments:</h2>
-{% for comment in user_comments %}
-    <div class="row">
-        <div class="col-md-2 border">
-            {% if comment.question_id %}
-                <a href="/question/{{comment.question_id}}" >{{ comment.message }}</a>
-            {% else %}
-                <a href="/question/{{comment.answer_question_id}}" >{{ comment.message }}</a>
-            {% endif %}
+{% if user_answers|length > 0 %}
+    <h2>Answers:</h2>
+    {% for answer in user_answers %}
+        <div class="row">
+            <div class="col-md-2 border"><a href="/question/{{ answer.question_id }}">{{ answer.message }}</a></div>
+            <div class="col-md-2 border">{{ answer.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
         </div>
-        <div class="col-md-2 border">{{ comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
-    </div>
-{% endfor %}
+    {% endfor %}
+{% endif %}
+
+{% if user_comments|length > 0 %}
+    <h2>Comments:</h2>
+    {% for comment in user_comments %}
+        <div class="row">
+            <div class="col-md-2 border">
+                {% if comment.question_id %}
+                    <a href="/question/{{comment.question_id}}" >{{ comment.message }}</a>
+                {% else %}
+                    <a href="/question/{{comment.answer_question_id}}" >{{ comment.message }}</a>
+                {% endif %}
+            </div>
+            <div class="col-md-2 border">{{ comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
+        </div>
+    {% endfor %}
+{% endif %}
 </body>
 
 {% endblock %}

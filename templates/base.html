@@ -18,7 +18,7 @@
 
         {%if session.get('username')%}
         <div style="margin: 10px;">
-           <a href="/user/{{session.get('user_id')}}" methods="POST"><small> Hello {{session.get('username')}}!</small></a>
+           <a href="/user/{{session.get('user_id')}}" methods="POST">{{session.get('username')}}</a>
         </div>
         <div>
             <form action="/logout">
