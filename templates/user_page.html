@@ -2,23 +2,34 @@
 {% block content %}
 <body>
 
-<h1>{{ user_question[0].username }}</h1>
+<div class="row">
+    <h1>{{user_question[0].username }}</h1>
+     <hr style="width: 100%; border-top: 1px solid #007bff;">
+</div>
+
+
 <h1>Question Table</h1>
 {% for question in user_question %}
-    <div>{{ question.title }}</div>
-    <div>{{ question.submission_time }}</div>
+    <div class="row border justify-content-md-center">
+        <div class="col-md-auto small p-2">{{ question.title }}</div>
+        <div class="col-md-auto small p-2">{{ question.submission_time.strftime("%Y-%m-%d %H:%M") }}</div>
+    </div>
 {% endfor %}
 
 <h1>Answer Table</h1>
 {% for answer in user_answers %}
-    <div>{{ answer.message }}</div>
-    <div>{{ answer.submission_time }}</div>
+    <div class="row border">
+        <div class="col-md-2">{{ answer.message }}</div>
+        <div class="col-md-2 small">{{ answer.submission_time.strftime("%Y-%m-%d %H:%M") }}</div>
+    </div>
 {% endfor %}
 
 <h1>Comments Table</h1>
 {% for comment in user_comments %}
-    <div>{{ comment.message }}</div>
-    <div>{{ comment.submission_time }}</div>
+    <div class="row border">
+        <div class="col-md-2">{{ comment.message }}</div>
+        <div class="col-md-2">{{ comment.submission_time.strftime("%Y-%m-%d %H:%M") }}</div>
+    </div>
 {% endfor %}
 </body>
 
