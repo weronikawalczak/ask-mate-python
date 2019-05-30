@@ -1,3 +1,4 @@
+from flask import session, redirect, render_template
 import data_manager
 import pass_service
 
@@ -30,3 +31,10 @@ def gain_reputation(username, counter):
     data_manager.gain_reputation(username, counter)
 
 
+def logged_in(function):
+    def wrapper():
+        if session:
+            return function()
+        else:
+            return redirect('/')
+    return wrapper

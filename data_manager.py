@@ -43,8 +43,8 @@ def get_question_by_id(cursor, id):
 
 
 @database_common.connection_handler
-def remove_question_by_id(cursor, id):
-    return cursor.execute("""DELETE FROM question WHERE id = %(id)s;""", {'id': id})
+def remove_question_by_id(cursor, id, session_user_id):
+    return cursor.execute("""DELETE FROM question WHERE id = %(id)s AND user_id = %(session_user_id)s;""", {'id': id, 'session_user_id': session_user_id})
 
 
 @database_common.connection_handler

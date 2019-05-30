@@ -6,13 +6,22 @@
 </div>
 
 <div class="row text-justify">{{question.message}}</div>
-<div class="row">{{question.image}}</div>
-<div class="row">
-    <div class="col-md-2"><a href="/question/{{ question.id }}/new-comment">add a comment</a></div>
-    <div class="col-md-2"><a href="/question/{{ question.id }}/edit">update question</a></div>
-    <div class="col-md-2"><a href="/question/{{ question.id }}/delete">delete question</a></div>
+
+<div class="row text-right">
+    <div class="col-md-10"></div>
     <div class="col-md-auto small p-2">{{question.username}}</div>
+    <div class="col-md-auto small p-2">{{question.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
 </div>
+
+{% if session %}
+    <div class="row">
+        <div class="col-md-2"><a href="/question/{{ question.id }}/new-comment">add a comment</a></div>
+        {% if session.get('username') == question.username  %}
+            <div class="col-md-2"><a href="/question/{{ question.id }}/edit">update question</a></div>
+            <div class="col-md-2"><a href="/question/{{ question.id }}/delete">delete question</a></div>
+        {% endif %}
+    </div>
+{% endif %}
 
 <div class="row">
 <div class="col-md-3"></div>
@@ -25,7 +34,9 @@
         <div class="row border justify-content-md-center">
             <div class="col-md-auto small p-2 ">{{comment.message}}</div>
             <div class="col-md-auto small p-2">{{comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
-            <div class="col-md-auto small p-2"><a href="/delete-comment/{{comment.id}}">delete comment</a></div>
+            {% if session.get('username') == comment.username %}
+                <div class="col-md-auto small p-2"><a href="/delete-comment/{{comment.id}}">delete comment</a></div>
+            {% endif %}
             <div class="col-md-auto small p-2 ">{{comment.username}}</div>
         </div>
     {% endfor %}
@@ -40,15 +51,21 @@
         <div class="row border">
             <div class="col-md-2"><a href="/answer/{{answer.id}}/vote"><i class="fa fa-thumbs-up" style="cursor: pointer;"></i></a><span style="margin: 10px;">{{answer.vote_number}}</span>votes</div>
             <div class="col-md-4">{{answer.message}}</div>
-            <div class="col-md-1"><a href="/answer/{{answer.id}}/new-comment">add comment</a></div>
-            <div class="col-md-1"><a href="/answer/{{answer.id}}/edit">update answer</a></div>
-            <div class="col-md-2"><a href="/answer/{{answer.id}}/delete">delete</a></div>
+            {% if session %}
+                <div class="col-md-1"><a href="/answer/{{answer.id}}/new-comment">add comment</a></div>
+                {% if session.get('username') == answer.username %}
+                    <div class="col-md-1"><a href="/answer/{{answer.id}}/edit">update answer</a></div>
+                    <div class="col-md-2"><a href="/answer/{{answer.id}}/delete">delete</a></div>
+                {% endif %}
+            {% endif %}
             <div class="col-md-2 small">{{answer.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
             <div class="col-md-2 small">{{answer.username}}</div>
         </div>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-9 mb-2">
+
+
                 {% if answers_comments[answer.id]|length > 0 %}
                     <h5 class="mt-2">Comments:</h5>
                 {% endif %}
@@ -56,10 +73,13 @@
                     <div class="row border justify-content-md-center">
                         <div class="col-md-auto small p-2 ">{{answer_comment.message}}</div>
                         <div class="col-md-auto small p-2">{{answer_comment.submission_time.strftime("%Y-%m-%d %H:%M")}}</div>
-                        <div class="col-md-auto small p-2"><a href="/delete-comment/{{answer_comment.id}}">delete comment</a></div>
+                        {% if session.get('username') == answer_comment.username %}
+                            <div class="col-md-auto small p-2"><a href="/delete-comment/{{answer_comment.id}}">delete comment</a></div>
+                        {% endif %}
                         <div class="col-md-auto small p-2">{{answer_comment.username}}</div>
                     </div>
                 {% endfor %}
+
                 </div>
             </div>
     {% endfor %}

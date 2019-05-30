@@ -1,3 +1,4 @@
+from flask import Flask, render_template, redirect, request, url_for, session, escape
 import data_manager
 
 
@@ -18,7 +19,7 @@ def save_question(title, message, image, user_id):
 
 
 def remove_question(id):
-    return data_manager.remove_question_by_id(id)
+    return data_manager.remove_question_by_id(id, session['user_id'])
 
 
 def update_question(id, title, message, image):

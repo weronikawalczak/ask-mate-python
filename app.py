@@ -21,6 +21,7 @@ def get_latest():
 
 
 @app.route('/add-question')
+@user.logged_in
 def add_question():
     return render_template('add_question.html')
 
