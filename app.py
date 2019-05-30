@@ -124,18 +124,23 @@ def delete_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
-@app.route('/answer/<answer_id>/vote')
-def vote_for_answer(answer_id):
-    answer.vote_for_answer(answer_id)
-    question_id = answer.get_question_id(answer_id)
-    user.gain_reputation(session['username'], 5)
+@app.route('/answer/<target_id>/vote/<rating>/<vote_for>/<question_id>')
+def vote_for_answer(target_id, rating, vote_for, question_id):
+    user_id = session['user_id']
+    print('rating ans', rating)
+    vote_manager.vote_analize(user_id, target_id, int(rating), vote_for)
+
+    # answer.vote_for_answer(target_id)
+    # question_id = answer.get_question_id(target_id)
+    # user.gain_reputation(session['username'], 5)
+
     return redirect('/question/' + str(question_id))
 
 
-@app.route('/question/<question_id>/vote/<rating>')
-def vote_for_question(question_id, rating):
-    username = session['username']
-    vote_manager.vote_analize(username, question_id, int(rating))
+@app.route('/question/<target_id>/vote/<rating>/<vote_for>')
+def vote_for_question(target_id, rating, vote_for):
+    user_id = session['user_id']
+    vote_manager.vote_analize(user_id, target_id, int(rating), vote_for)
     return redirect('/')
 
 

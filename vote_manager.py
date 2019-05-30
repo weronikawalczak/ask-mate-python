@@ -1,6 +1,7 @@
 import database_common
 import data_manager
 import question
+import answer
 
 
 @database_common.connection_handler
@@ -20,33 +21,31 @@ def check_vote_validation(cursor, username, counter):
     print(session['username'])
     return vote_data
 
-def vote_analize(username, question_id, value):
-    # print(username, question_id)
-    user_id = data_manager.get_user_id(username)
-    user_id = (user_id[0]["id"])
-    valid_data_in_table = (check_votes(user_id, question_id, "q"))
-    print('value', value)
-    # print(vote_id)
+def vote_analize(user_id, target_id, value, vote_for):
+    valid_data_in_table = (check_votes(user_id, target_id, vote_for))
+    print(valid_data_in_table[0])
     if len(valid_data_in_table) == 0:
-        poss_vote_up = True
-        poss_vote_down = True
-        print('tak1')
-        vote_counter_input('q', question_id, user_id, value)
+        vote_counter_input(vote_for, target_id, user_id, value)
     else:
         vote_id = valid_data_in_table[0]['id']
-        print(valid_data_in_table)
         if valid_data_in_table[0]['user_vote'] > 0 and value < 0:
-            question.vote_for_question(question_id, value)
-            vote_counter_update(vote_id, -1)
-            print('tak2',valid_data_in_table[0]['user_vote'])
+            change_vote(vote_id, value, target_id, vote_for)
+            print('XX 1')
         elif valid_data_in_table[0]['user_vote'] < 0 and value >0:
-            question.vote_for_question(question_id, value)
-            vote_counter_update(vote_id, 1)
-            print('tak3', valid_data_in_table[0]['user_vote'])
+            change_vote(vote_id, value, target_id, vote_for)
+            print('XX 2')
         elif valid_data_in_table[0]['user_vote'] == 0:
-            question.vote_for_question(question_id, value)
-            vote_counter_update(vote_id, value)
-            print('tak4', valid_data_in_table[0]['user_vote'])
+            change_vote(vote_id, value, target_id, vote_for)
+            print('XX 3')
+
+def change_vote(vote_id, value, target_id, vote_for):
+    if vote_for == 'q':
+        question.vote_for_question(target_id, value)
+        vote_counter_update(vote_id, value)
+    elif vote_for == 'a':
+        print('value an', value)
+        answer.vote_for_answer(target_id, value)
+        vote_counter_update(vote_id, value)
 
     # else:
     #     print('nie')
@@ -65,3 +64,4 @@ def vote_counter_update(cursor, id, value):
     return cursor.execute("""UPDATE votes_counter 
                                 SET user_vote = user_vote + %(value)s
                                 WHERE id = %(id)s;""", {'id': id, 'value': value})
+

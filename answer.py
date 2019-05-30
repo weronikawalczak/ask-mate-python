@@ -25,8 +25,8 @@ def remove_answer(answer_id):
     return data_manager.remove_answer(answer_id)
 
 
-def vote_for_answer(answer_id):
-    return data_manager.vote_for_answer(answer_id)
+def vote_for_answer(answer_id, value):
+    return data_manager.vote_for_answer(answer_id, value)
 
 
 def add_comment(answer_id, message, user_id):

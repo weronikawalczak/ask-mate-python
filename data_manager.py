@@ -109,10 +109,10 @@ def update_answer(cursor, id, message):
 
 
 @database_common.connection_handler
-def vote_for_answer(cursor, id):
+def vote_for_answer(cursor, id, value):
     return cursor.execute("""UPDATE answer 
-                                SET vote_number = vote_number + 1
-                                WHERE id = %(id)s;""", {'id': id})
+                                SET vote_number = vote_number + %(value)s
+                                WHERE id = %(id)s;""", {'id': id, 'value': value})
 
 
 @database_common.connection_handler
