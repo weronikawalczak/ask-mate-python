@@ -183,6 +183,7 @@ def list_users(cursor):
     users = cursor.fetchall()
     return users
 
+
 @database_common.connection_handler
 def get_user(cursor, username):
     cursor.execute("SELECT * FROM person WHERE username = %(username)s ", {'username': username})
@@ -195,4 +196,33 @@ def gain_reputation(cursor, username, counter):
     return cursor.execute("""UPDATE person 
                                 SET reputation = reputation + int(counter)
                                 WHERE username = %(username)s;""", {'username': username})
+
+
+@database_common.connection_handler
+def user_page_get_question_by_user_id(cursor, user_id):
+    return cursor.execute("""select title from   
+                                question
+                                WHERE user_id = %(user_id)s;""", {'user_id': user_id})
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
+def user_page_get_answer_by_id(cursor, id):
+    return cursor.execute("""select massage from   
+                                answer
+                                WHERE id = %(id)s;""", {'id': id})
+    data = cursor.fetchall()
+    return data
+
+
+@database_common.connection_handler
+def user_page_get_comment_by_id(cursor, id):
+    return cursor.execute("""select massage from   
+                                comment
+                                WHERE id = %(id)s;""", {'id': id})
+    data = cursor.fetchall()
+    return data
+
+
 

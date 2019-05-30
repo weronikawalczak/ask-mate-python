@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<body>
+
+{% for question in user_question %}
+
+    <div>
+     {{ question  }}
+    </div>
+
+{% endfor %}
+
+{% for answer in user_answers %}
+
+    <div>
+     {{ answer  }}
+    </div>
+
+{% endfor %}
+
+{% for comment in user_comments %}
+
+    <div>
+    {{ comment  }}
+    </div>
+
+{% endfor %}
+
+
+</body>
+
+{% endblock %}

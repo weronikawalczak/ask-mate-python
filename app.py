@@ -162,23 +162,6 @@ def save_comment_answer(answer_id):
     return redirect('/question/' + str(question_id))
 
 
-# @app.route('/login', methods=['GET', 'POST'])
-# def login():
-#     error_massage = None
-#     username_data = data_manager.
-#     if request.method == 'POST':
-#         if request.form['username'] = 'admin' and request.form['password'] != 'admin':
-#             error_massage = 'Invalid data. Please try again'
-#         else:
-#             redirect(url_for('/'))
-#
-#
-#
-#     return render_template('registration_login.html', error_massage=error_massage)
-
-
-
-
 @app.route('/registration', methods=['GET'])
 def show_register_template():
     return render_template('registration_login.html')
@@ -194,11 +177,13 @@ def register_user():
     except Exception as e:
         return redirect('/registration?error_message='+str(e))
 
+
 @app.route('/list_users')
 def list_users():
     users_info = data_manager.list_users()
     print(users_info)
     return render_template('list_users.html', list_users=users_info)
+
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
@@ -212,16 +197,9 @@ def login():
             session['user_id'] = result['id']
             print("Logged in as " + request.form['username_login'])
             return redirect('/')
-        session['username'] = request.form['username_login']
-        result = user.login_user(session['username'], request.form['password_login'])
-        if result == True:
-            flash('You were just logged in!')
-            return redirect(url_for('get_latest'))
         else:
             print("Error logging in as " + request.form['username_login'])
             return redirect('/registration')
-            return redirect('/')
-    return redirect('/')
 
 
 @app.route('/logout')
@@ -229,6 +207,20 @@ def logout():
     # remove the username from the session if it's there
     session.clear()
     return redirect(url_for('index'))
+
+
+@app.route('/user/<user_id>')
+def user_page_render(user_id):
+    return render_template('user_page.html')
+
+
+@app.route('/user/<user_id>', methods=['POST'])
+def user_page(user_id):
+    user_question = user.get_questions_by_user_id(user_id)
+    user_answers = user.get_answers_by_user_id(user_id)
+    user_comments = user.get_comments_by_user_id(user_id)
+    return render_template('user_page.html', user_question=user_question,
+                           user_answers=user_answers, user_comments=user_comments)
 
 
 if __name__ == "__main__":

@@ -28,3 +28,16 @@ def gain_reputation(username, counter):
     data_manager.gain_reputation(username, counter)
 
 
+def get_questions_by_user_id(user_id):
+    data = data_manager.user_page_get_question_by_user_id(user_id)
+    return data
+
+
+def get_answers_by_user_id(id):
+    data = data_manager.user_page_get_answer_by_id(id)
+    return data
+
+
+def get_comments_by_user_id(id):
+    data = data_manager.user_page_get_comment_by_id(id)
+    return data
