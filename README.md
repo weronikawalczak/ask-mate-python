@@ -17,4 +17,7 @@ AskMate:
 * Bcrypt
 * Html, Css, Bootstrap
 
+## Screenshots
 
+## Status
+Project is finished.
