@@ -14,6 +14,7 @@ AskMate:
 * Python 3.7
 * Flask
 * Postgresql
-* bcrypt
-* html, css, bootstrap
+* Bcrypt
+* Html, Css, Bootstrap
+
 
