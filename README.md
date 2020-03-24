@@ -9,3 +9,11 @@ AskMate:
 * Gives possibility to tag questions by topis
 * Logs errors
 * Handles errors on differents levels of MVC pattern
+
+## Technologies
+* Python 3.7
+* Flask
+* Postgresql
+* bcrypt
+* html, css, bootstrap
+
