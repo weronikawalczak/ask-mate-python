@@ -1,5 +1,6 @@
 # Ask Mate
-Web application which allows to ask questions and give answers. Created to practice MVC pattern, errors handling, logging. 
+Web application based on StackOverflow forum. It allows to ask questions by users, give answers, tag topics
+and vote for best response. Created to practice MVC pattern, errors handling, logging. 
 
 ## General info
 AskMate:
@@ -15,7 +16,7 @@ AskMate:
 * Flask
 * Postgresql
 * Bcrypt
-* Html, Css, Bootstrap
+* Html, CSS, Bootstrap
 
 ## Screenshots
 
