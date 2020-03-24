@@ -13,11 +13,9 @@ and vote for best response. Created to practice MVC pattern, errors handling, lo
 ## General info
 AskMate:
 * Shows on main page list of all questions
-* Displays form to add questions, answers, comments
+* Displays form to add questions, answers and comments
 * Displays form to register or login
-* Gives possibility to tag questions by topis
-* Logs errors
-* Handles errors on differents levels of MVC pattern
+* Voting system
 
 ## Technologies
 * Python 3.7
@@ -27,7 +25,7 @@ AskMate:
 * Html, CSS, Bootstrap
 
 ## Setup
-
+Use requirements.txt to download all nedeed dependencies. 
 
 ## Screenshots
 
