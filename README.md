@@ -1,5 +1,5 @@
 # Ask Mate
-Web application which allows to ask questions and give answers. Created to practice MVC pattern, errors handling, logging. I used custom created errors classes, data validation, logging library. Implemented Jinja template language, css styling, hashing passwords.
+Web application which allows to ask questions and give answers. Created to practice MVC pattern, errors handling, logging. 
 
 ## General info
 AskMate:
