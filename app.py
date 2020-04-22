@@ -130,10 +130,6 @@ def vote_for_answer(target_id, rating, vote_for, question_id):
     print('rating ans', rating)
     vote_manager.vote_analize(user_id, target_id, int(rating), vote_for)
 
-    # answer.vote_for_answer(target_id)
-    # question_id = answer.get_question_id(target_id)
-    # user.gain_reputation(session['username'], 5)
-
     return redirect('/question/' + str(question_id))
 
 
@@ -211,11 +207,6 @@ def logout():
     # remove the username from the session if it's there
     session.clear()
     return redirect(url_for('index'))
-
-
-# @app.route('/user/<user_id>')
-# def user_page_render():
-#     return render_template('user_page.html')
 
 
 @app.route('/user/<user_id>', methods=['POST', 'GET'])
