@@ -27,7 +27,8 @@ AskMate:
 
 
 ## Screenshots
-
+![Example screenshot](./screenshots/mainPage.png)
+![Example screenshot](./screenshots/question1.png)
 
 ## Status
 Project is finished.
