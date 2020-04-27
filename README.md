@@ -23,9 +23,6 @@ AskMate:
 * Bcrypt
 * Html, CSS, Bootstrap
 
-## Setup
-
-
 ## Screenshots
 ![Example screenshot](./screenshots/mainPage.png)
 ![Example screenshot](./screenshots/question1.png)
